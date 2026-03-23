@@ -1,0 +1,40 @@
+---
+title: Stop Day
+description: Segunda capa de seguridad que limita los stop loss diarios.
+---
+
+## ¿Qué hace el Stop Day?
+
+El Stop Day es la **segunda capa de seguridad** del ecosistema. Permite configurar una **cantidad máxima de stop loss por día**. Si se alcanza ese límite, el bot se apaga automáticamente para proteger tu capital.
+
+## ¿Por qué es necesario?
+
+El mercado cripto puede tener días de **caídas abruptas**. En esos momentos, el Rango Mínimo (stop loss) funciona correctamente: corta la pérdida y libera capital. Pero el problema es que al liberar capital, el bot inmediatamente busca una nueva operación, que en un mercado en caída también podría terminar en stop loss.
+
+Sin el Stop Day, podrías tener múltiples stop loss seguidos en un día de alta volatilidad. El Stop Day rompe ese ciclo.
+
+## ¿Cómo funciona?
+
+1. Configurás la **cantidad máxima de stop loss diarios** (por ejemplo, 2)
+2. El bot opera normalmente
+3. Si en un día se activan 2 stop loss, el Stop Day **apaga la herramienta automáticamente**
+4. Te envía una **notificación por email** avisándote
+5. Vos decidís cuándo volver a encender la herramienta (unas horas, un día, dos días)
+
+<Warning>
+  Cuando el Stop Day se activa, **tenés que volver a encender la herramienta manualmente**. Esto es intencional: te da la oportunidad de evaluar el mercado antes de seguir operando.
+</Warning>
+
+## Ejemplo real
+
+El 10 de octubre de 2025, Bitcoin cayó alrededor de un 10% y algunas altcoins perdieron hasta un 80% de su valor. Sin el Stop Day, cada stop loss hubiera liberado capital que se reinvertía inmediatamente en operaciones que probablemente también terminaban en stop loss.
+
+Con el Stop Day configurado en 2, después de 2 stop loss el bot se apagó automáticamente, **protegiendo el capital restante** de la caída generalizada.
+
+## Configuración
+
+En la sección de configuración del bot, establecé la cantidad máxima de stop loss diarios que estés dispuesto a tolerar.
+
+<Tip>
+  Un valor de **2 a 3 stop loss diarios** es un buen punto de partida para la mayoría de los usuarios.
+</Tip>
