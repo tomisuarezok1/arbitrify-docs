@@ -1,0 +1,92 @@
+---
+title: Estrategias de Fórmulas
+description: Las tres fórmulas para armar tu listado de monedas según tu perfil de riesgo.
+---
+
+## ¿Qué son las fórmulas?
+
+Las fórmulas son **estrategias predefinidas** para armar el listado de monedas en la configuración del bot. Cada fórmula determina qué tipo de monedas usás como base para las triangulaciones, lo que afecta directamente el nivel de riesgo y la cantidad de operaciones.
+
+<Info>
+  No hay una fórmula "ganadora" o "perdedora". La idea es que vayas probando hasta encontrar la que mejor se adapte a tu perfil y al estado del mercado.
+</Info>
+
+## Fórmula Potenciadora
+
+### ¿Qué incluye?
+
+Además de las monedas que ya tengas, tu listado debe incluir: **BTC**, **BNB** y **ETH**.
+
+### Ventajas
+
+- **Mayor cantidad de operaciones** por día
+- Más dinamismo: se abren más órdenes con más frecuencia
+
+### Desventajas
+
+- **Mayor exposición a la volatilidad**, ya que la triangulación pasa por dos altcoins
+
+### Ejemplo de triangulación
+
+USDT → **BTC** → DOT → USDT
+
+En este caso, tanto BTC como DOT pueden variar de precio durante la operación, lo que genera más riesgo pero también más oportunidades.
+
+---
+
+## Fórmula Conservadora
+
+### ¿Qué incluye?
+
+Sacá **BTC**, **BNB** y **ETH** del listado. En su lugar, asegurate de tener: **USDT**, **USDC**, **FDUSD** y **EUR**.
+
+### Ventajas
+
+- **Menor exposición a la volatilidad**
+- Las triangulaciones pasan por una sola altcoin, generando mayor estabilidad
+
+### Desventajas
+
+- **Menos operaciones** por día
+
+### Ejemplo de triangulación
+
+USDT → **EUR** → DOT → USDT
+
+En la etapa 2 de 3 tenés EUR (una moneda estable), lo que reduce significativamente el riesgo de diferencia de precio.
+
+---
+
+## Fórmula Híbrida
+
+### ¿Qué incluye?
+
+Combiná las monedas de la conservadora (**USDT**, **USDC**, **FDUSD**, **EUR**) con **alguna** moneda de la potenciadora. Por ejemplo:
+
+- Conservadora + **BTC** (sin ETH ni BNB)
+- Conservadora + **ETH** (sin BTC ni BNB)
+
+### Ventajas
+
+- Equilibrio entre operaciones y protección
+- Podés ajustar el nivel de riesgo agregando o sacando una moneda volátil
+
+### Desventajas
+
+- Requiere algo más de prueba y ajuste para encontrar el punto óptimo
+
+---
+
+## Comparativa rápida
+
+| | Potenciadora | Conservadora | Híbrida |
+|---|---|---|---|
+| **Monedas base** | BTC + BNB + ETH | USDT + USDC + FDUSD + EUR | Stablecoins + 1 volátil |
+| **Operaciones/día** | Alta | Baja | Media |
+| **Volatilidad** | Alta | Baja | Media |
+| **Altcoins en triangulación** | 2 | 1 | 1-2 |
+| **Recomendada para** | Perfil agresivo | Perfil conservador | Perfil moderado |
+
+<Tip>
+  Probá cada fórmula al menos **una semana** antes de cambiar a otra. Así podés comparar resultados reales en diferentes condiciones de mercado.
+</Tip>
