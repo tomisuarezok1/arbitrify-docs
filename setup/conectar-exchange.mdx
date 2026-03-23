@@ -9,43 +9,56 @@ Una vez que tenés tu API creada y configurada en Binance, necesitás cargarla e
 
 <Steps>
   <Step title="Ingresá a tu cuenta de Arbitrify">
-    Iniciá sesión en la plataforma y dirigite a la sección **Mis Exchange**.
+    Iniciá sesión en la plataforma con tu email y contraseña.
+  </Step>
+  <Step title="Andá a Mis Exchanges">
+    En el menú lateral izquierdo, hacé clic en **Mis Exchanges**. Vas a ver un formulario con un selector de exchange y campos para las claves.
   </Step>
   <Step title="Seleccioná el exchange">
-    Elegí **Binance** de la lista de exchanges disponibles. Si querés acumular Bitcoin, seleccioná **Binance BTC**.
+    En el dropdown **Exchange**, elegí la opción correspondiente:
+
+    | Opción | Uso |
+    |--------|-----|
+    | **Binance** | Para acumular monedas estables (USDT, USDC, EUR, FDUSD) |
+    | **Binance BTC** | Para acumular Bitcoin |
+    | **OKX** | Si operás con OKX en lugar de Binance |
   </Step>
   <Step title="Cargá las claves">
-    Vas a ver campos para completar:
+    Completá los campos del formulario:
 
-    1. **Primer campo**: pegá tu **API Key** (clave pública)
-    2. **Segundo campo**: pegá tu **Secret Key** (clave secreta)
-    3. **Tercer campo**: dejalo vacío (no se usa)
-    4. **Cuarto campo**: poné cualquier valor (por ejemplo, "1")
+    - **Api Key**: pegá tu clave pública de la API
+    - **Secret Key**: pegá tu clave secreta
+    - **Pass Phrase**: dejalo vacío (no aplica para Binance)
+    - **Porcentaje**: poné cualquier valor (por ejemplo, "1")
   </Step>
   <Step title="Guardá">
-    Hacé clic afuera de los campos y luego en **Guardar**. La herramienta queda conectada a tu Binance.
+    Hacé clic en **GUARDAR**. Si todo está correcto, vas a ver tu exchange listado en la tabla de la derecha con su porcentaje.
   </Step>
 </Steps>
+
+<Info>
+  A la derecha del formulario vas a ver una tabla que muestra los exchanges ya conectados con su porcentaje asignado. Si ya tenés Binance conectado, va a aparecer ahí.
+</Info>
 
 ## Modificar una API existente
 
 Si necesitás cambiar los datos de tu API (por ejemplo, porque creaste una nueva):
 
 <Warning>
-  **No selecciones Binance de nuevo desde "Mis Exchange".** Si intentás cargar Binance por segunda vez, te va a dar error porque el exchange ya está registrado.
+  **No selecciones Binance de nuevo desde el formulario de la izquierda.** Si intentás cargar Binance por segunda vez, te va a dar error porque el exchange ya está registrado.
 </Warning>
 
 En su lugar:
 
-1. Andá a la sección donde ya tenés Binance cargado
-2. Hacé clic sobre **Binance** en tu lista de exchanges conectados
-3. Modificá los datos que necesites
-4. Guardá los cambios
+1. En la tabla de la derecha, hacé clic sobre **Binance**
+2. Se van a cargar los datos actuales en el formulario
+3. Modificá los campos que necesites
+4. Hacé clic en **GUARDAR**
 
 ## Errores comunes
 
 | Problema | Causa | Solución |
 |----------|-------|----------|
-| "No se puede guardar" al agregar Binance | Ya tenés Binance cargado | Editá el exchange existente en lugar de crear uno nuevo |
+| "No se puede guardar" al agregar Binance | Ya tenés Binance cargado | Editá el exchange existente desde la tabla de la derecha |
 | La herramienta no conecta | API Key o Secret Key incorrectas | Verificá que copiaste bien ambas claves desde Binance |
 | La herramienta no puede operar | API sin permisos de Spot | Volvé a Binance y habilitá "Spot y Trading de margen" |
