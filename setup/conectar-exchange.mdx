@@ -1,64 +1,68 @@
 ---
 title: Conectar tu Exchange
-description: Cómo cargar tu API de Binance en Arbitrify.
+description: CÃ³mo cargar tu API de Binance en Arbitrify.
 ---
 
 ## Cargar tu API en la plataforma
 
-Una vez que tenés tu API creada y configurada en Binance, necesitás cargarla en Arbitrify para que la herramienta pueda operar.
+Una vez que tenÃ©s tu API creada y configurada en Binance, necesitÃ¡s cargarla en Arbitrify para que la herramienta pueda operar.
 
 <Steps>
-  <Step title="Ingresá a tu cuenta de Arbitrify">
-    Iniciá sesión en la plataforma con tu email y contraseña.
+  <Step title="IngresÃ¡ a tu cuenta de Arbitrify">
+    IniciÃ¡ sesiÃ³n en la plataforma con tu email y contraseÃ±a.
   </Step>
-  <Step title="Andá a Mis Exchanges">
-    En el menú lateral izquierdo, hacé clic en **Mis Exchanges**. Vas a ver un formulario con un selector de exchange y campos para las claves.
-  </Step>
-  <Step title="Seleccioná el exchange">
-    En el dropdown **Exchange**, elegí la opción correspondiente:
+  <Step title="AndÃ¡ a Mis Exchanges">
+    En el menÃº lateral izquierdo, hacÃ© clic en **Mis Exchanges**. Vas a ver un formulario con un selector de exchange y campos para las claves.
 
-    | Opción | Uso |
+    <Frame caption="Pantalla de Mis Exchanges en Arbitrify">
+      <img src="/images/mis-exchanges.png" alt="Pantalla Mis Exchanges" />
+    </Frame>
+  </Step>
+  <Step title="SeleccionÃ¡ el exchange">
+    En el dropdown **Exchange**, elegÃ­ la opciÃ³n correspondiente:
+
+    | OpciÃ³n | Uso |
     |--------|-----|
     | **Binance** | Para acumular monedas estables (USDT, USDC, EUR, FDUSD) |
     | **Binance BTC** | Para acumular Bitcoin |
-    | **OKX** | Si operás con OKX en lugar de Binance |
+    | **OKX** | Si operÃ¡s con OKX en lugar de Binance |
   </Step>
-  <Step title="Cargá las claves">
-    Completá los campos del formulario:
+  <Step title="CargÃ¡ las claves">
+    CompletÃ¡ los campos del formulario:
 
-    - **Api Key**: pegá tu clave pública de la API
-    - **Secret Key**: pegá tu clave secreta
-    - **Pass Phrase**: dejalo vacío (no aplica para Binance)
-    - **Porcentaje**: poné cualquier valor (por ejemplo, "1")
+    - **Api Key**: pegÃ¡ tu clave pÃºblica de la API
+    - **Secret Key**: pegÃ¡ tu clave secreta
+    - **Pass Phrase**: dejalo vacÃ­o (no aplica para Binance)
+    - **Porcentaje**: ponÃ© cualquier valor (por ejemplo, "1")
   </Step>
-  <Step title="Guardá">
-    Hacé clic en **GUARDAR**. Si todo está correcto, vas a ver tu exchange listado en la tabla de la derecha con su porcentaje.
+  <Step title="GuardÃ¡">
+    HacÃ© clic en **GUARDAR**. Si todo estÃ¡ correcto, vas a ver tu exchange listado en la tabla de la derecha con su porcentaje.
   </Step>
 </Steps>
 
 <Info>
-  A la derecha del formulario vas a ver una tabla que muestra los exchanges ya conectados con su porcentaje asignado. Si ya tenés Binance conectado, va a aparecer ahí.
+  A la derecha del formulario vas a ver una tabla que muestra los exchanges ya conectados con su porcentaje asignado. Si ya tenÃ©s Binance conectado, va a aparecer ahÃ­.
 </Info>
 
 ## Modificar una API existente
 
-Si necesitás cambiar los datos de tu API (por ejemplo, porque creaste una nueva):
+Si necesitÃ¡s cambiar los datos de tu API (por ejemplo, porque creaste una nueva):
 
 <Warning>
-  **No selecciones Binance de nuevo desde el formulario de la izquierda.** Si intentás cargar Binance por segunda vez, te va a dar error porque el exchange ya está registrado.
+  **No selecciones Binance de nuevo desde el formulario de la izquierda.** Si intentÃ¡s cargar Binance por segunda vez, te va a dar error porque el exchange ya estÃ¡ registrado.
 </Warning>
 
 En su lugar:
 
-1. En la tabla de la derecha, hacé clic sobre **Binance**
+1. En la tabla de la derecha, hacÃ© clic sobre **Binance**
 2. Se van a cargar los datos actuales en el formulario
-3. Modificá los campos que necesites
-4. Hacé clic en **GUARDAR**
+3. ModificÃ¡ los campos que necesites
+4. HacÃ© clic en **GUARDAR**
 
 ## Errores comunes
 
-| Problema | Causa | Solución |
+| Problema | Causa | SoluciÃ³n |
 |----------|-------|----------|
-| "No se puede guardar" al agregar Binance | Ya tenés Binance cargado | Editá el exchange existente desde la tabla de la derecha |
-| La herramienta no conecta | API Key o Secret Key incorrectas | Verificá que copiaste bien ambas claves desde Binance |
-| La herramienta no puede operar | API sin permisos de Spot | Volvé a Binance y habilitá "Spot y Trading de margen" |
+| "No se puede guardar" al agregar Binance | Ya tenÃ©s Binance cargado | EditÃ¡ el exchange existente desde la tabla de la derecha |
+| La herramienta no conecta | API Key o Secret Key incorrectas | VerificÃ¡ que copiaste bien ambas claves desde Binance |
+| La herramienta no puede operar | API sin permisos de Spot | VolvÃ© a Binance y habilitÃ¡ "Spot y Trading de margen" |
