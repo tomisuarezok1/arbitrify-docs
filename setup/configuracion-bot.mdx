@@ -1,0 +1,137 @@
+---
+title: Configuración del Bot
+description: Guía completa para configurar el bot de arbitraje triangular DNA180.
+---
+
+## Acceder a la configuración
+
+Iniciá sesión en Arbitrify, andá a **DNA 180 → Configuración**. Ahí vas a encontrar todos los parámetros que necesitás ajustar.
+
+## 1. Seleccionar el exchange
+
+Elegí el exchange según lo que quieras acumular:
+
+| Opción | Acumulás |
+|--------|----------|
+| **Binance** | Monedas estables (USDT, USDC, EUR, FDUSD) |
+| **Binance BTC** | Bitcoin |
+
+## 2. Armar el listado de monedas
+
+Tenés que armar una lista de monedas con las que el bot va a buscar oportunidades de arbitraje. Hay dos fuentes para elegir monedas:
+
+- **Directamente de Binance**: elegí monedas que se operen en el mercado Spot
+- **Desde el Escáner**: la herramienta tiene un escáner integrado que muestra monedas con actividad
+
+Lo ideal es hacer un **mix** entre ambas fuentes.
+
+### Monedas base obligatorias
+
+Según tu plan, estas monedas **tienen que estar** en tu listado:
+
+| Si acumulás... | Tiene que estar en el listado |
+|----------------|-------------------------------|
+| USDT | USDT |
+| USDT + USDC | USDT y USDC |
+| USDT + USDC + EUR | USDT, USDC y EUR |
+
+Además de las monedas que acumulás, se recomienda tener como base: **BTC**, **ETH** y **BNB** (salvo que uses la fórmula conservadora, ver [Estrategias de Fórmulas](/estrategias/formulas)).
+
+### Límites de pares
+
+| Plan | Máximo de pares |
+|------|----------------|
+| **Low Cost** | 90 pares |
+| **Otros planes** | 160 pares |
+
+Si te pasás del límite, simplemente sacá monedas del listado y volvé a guardar.
+
+## 3. Filtro de órdenes abiertas
+
+Este valor determina cuántas operaciones simultáneas puede tener abiertas el bot **por cada moneda estable que acumulés**.
+
+Para más detalle sobre cómo funciona, consultá la guía del [Bot de Órdenes](/ecosistema/bot-ordenes).
+
+## 4. Monto por operación
+
+Acá definís cuántos dólares (o equivalente) va a usar el bot en cada operación.
+
+### Cálculo recomendado para el inicio
+
+La idea es arrancar usando el **50% del capital** y dejar el otro 50% como garantía.
+
+**Fórmula:**
+
+```
+Monto por operación = Capital total / (Órdenes abiertas × Monedas estables × 2)
+```
+
+### Ejemplos
+
+**Ejemplo 1**: $1,000 de capital, acumulás solo USDT, 3 órdenes abiertas:
+
+```
+$1,000 / (3 × 1 × 2) = $1,000 / 6 = $166 por operación
+```
+
+**Ejemplo 2**: $1,000 de capital, acumulás USDT y USDC, 2 órdenes abiertas:
+
+```
+$1,000 / (2 × 2 × 2) = $1,000 / 8 = $125 por operación
+```
+
+<Tip>
+  Arrancar con el 50% es lo recomendado para el inicio. Una vez que tengas confianza con la herramienta, podés ajustar al 60%, 70% o incluso 100% del capital.
+</Tip>
+
+## 5. Profit mínimo
+
+Es el **porcentaje mínimo de ganancia** que debe tener una triangulación para que el bot la ejecute.
+
+| Valor | Comportamiento |
+|-------|---------------|
+| **0.55% a 0.70%** | Rango habitual. Más operaciones, profit moderado |
+| **0.90% o más** | Menos operaciones, pero de mayor porcentaje |
+
+Podés ajustar este valor en cualquier momento según tu preferencia: más operaciones con menos profit, o menos operaciones con más profit.
+
+## 6. Rango Mínimo y Rango Máximo
+
+Para la configuración detallada de estos valores, consultá la guía de [Rango Mínimo y Máximo](/ecosistema/rango-minimo-maximo).
+
+En resumen:
+
+- **Rango Máximo** (Take Profit): entre **0.5% y 1%**
+- **Rango Mínimo** (Stop Loss): según tu perfil de riesgo
+
+## 7. Guardar y activar
+
+<Steps>
+  <Step title="Guardá la configuración">
+    Hacé clic en **Guardar**. Si te aparece un cartel de "debe completar todos los campos", ignoralo y volvé a hacer clic en Guardar.
+  </Step>
+  <Step title="Esperá la confirmación del administrador">
+    **No actives la herramienta** hasta que el administrador de tu plataforma te confirme que la configuración está correcta y tu máquina está creada.
+  </Step>
+  <Step title="Verificá tu saldo de BNB">
+    Asegurate de tener al menos **$1 en BNB** en tu billetera Spot para cubrir las comisiones de operación. Cuanto más capital operes, más BNB vas a necesitar.
+  </Step>
+  <Step title="Activá el bot">
+    Una vez confirmado todo, activá la herramienta desde el switch de activación.
+  </Step>
+</Steps>
+
+## Modificaciones con el bot encendido
+
+| Qué querés cambiar | ¿Hay que apagar el bot? |
+|--------------------|------------------------|
+| Órdenes abiertas, monto, profit, rangos | **No**, se puede cambiar en caliente |
+| Listado de monedas | **Sí**, hay que apagar y volver a encender |
+
+<Warning>
+  Al apagar y encender el bot se hace un **reinicio completo**. Las operaciones abiertas que estén en la etapa 2 de 3 no van a poder continuar automáticamente: vas a tener que cancelarlas y vender manualmente en Binance.
+</Warning>
+
+<Tip>
+  Las monedas no hay que cambiarlas todos los días. Dejá una estrategia trabajar **mínimo una semana o 10 días** antes de modificar el listado.
+</Tip>
