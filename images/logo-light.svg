@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <path d="M20 2L36 32H26L20 22L14 32H4L20 2Z" fill="url(#g2)"/>
+  <path d="M20 20L28 32H12L20 20Z" fill="#ffffff"/>
+  <text x="44" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#0a0a0a">Arbitrify</text>
+  <defs>
+    <linearGradient id="g2" x1="20" y1="2" x2="20" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#00ff88"/>
+      <stop offset="1" stop-color="#00cc6a"/>
+    </linearGradient>
+  </defs>
+</svg>
