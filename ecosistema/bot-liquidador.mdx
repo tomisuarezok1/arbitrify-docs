@@ -1,0 +1,35 @@
+---
+title: Bot Liquidador
+description: Cierra triangulaciones anticipadamente para asegurar ganancias.
+---
+
+## ¿Qué hace el Bot Liquidador?
+
+El Bot Liquidador actúa en la **operación 3 de 3** (la última etapa de la triangulación). Su función es cerrar la operación un poco antes si detecta que la ganancia está bajando, para asegurar que salgas en positivo.
+
+## ¿Por qué es necesario?
+
+Imaginá que una triangulación USDT → BTC → LINK → USDT fue detectada originalmente con una ganancia estimada del **1%**. Cuando llega el momento de ejecutar la última orden (vender LINK por USDT), el precio se movió un poco y ahora la ganancia es del **0.5%**.
+
+En este punto hay dos opciones:
+
+- **Esperar** a que el precio vuelva a subir al 1% original (pero también podría seguir bajando)
+- **Cerrar ahora** con un 0.5% y asegurar la ganancia
+
+El Bot Liquidador elige la segunda opción: prefiere **asegurar una ganancia menor** antes de arriesgarse a que la operación termine en pérdida.
+
+## ¿Cómo funciona?
+
+1. La triangulación llega a la operación 3 de 3
+2. El bot detecta que la ganancia bajó pero **sigue en positivo**
+3. **Cancela** la orden actual
+4. Coloca una **nueva orden a un precio más actualizado** para cerrar la triangulación inmediatamente
+5. Se libera el capital para la siguiente operación
+
+<Info>
+  El Bot Liquidador solo actúa cuando la operación sigue en ganancia. Si la operación ya entró en pérdida, es el **Rango Mínimo** el que se encarga.
+</Info>
+
+## Configuración
+
+El Bot Liquidador opera de forma automática una vez que encendés tu bot. No requiere configuración adicional.
