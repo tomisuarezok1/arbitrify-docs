@@ -1,27 +1,30 @@
 ---
 title: Configuración del Bot
-description: Guía completa para configurar el bot de arbitraje triangular DNA180.
+description: Guía completa para configurar el bot de arbitraje triangular.
 ---
 
 ## Acceder a la configuración
 
-Iniciá sesión en Arbitrify, andá a **DNA 180 → Configuración**. Ahí vas a encontrar todos los parámetros que necesitás ajustar.
+Iniciá sesión en Arbitrify, en el menú lateral andá a **Bot Triangular → Configuración**. Se va a abrir la pantalla de **Configuración Triangular**.
 
 ## 1. Seleccionar el exchange
 
-Elegí el exchange según lo que quieras acumular:
+En el dropdown **Exchange**, elegí según lo que quieras acumular:
 
 | Opción | Acumulás |
 |--------|----------|
 | **Binance** | Monedas estables (USDT, USDC, EUR, FDUSD) |
 | **Binance BTC** | Bitcoin |
+| **OKX** | Monedas estables en OKX |
 
 ## 2. Armar el listado de monedas
 
-Tenés que armar una lista de monedas con las que el bot va a buscar oportunidades de arbitraje. Hay dos fuentes para elegir monedas:
+Al seleccionar el exchange, vas a ver un campo **Monedas** con un buscador. Las monedas seleccionadas aparecen como chips verdes debajo del campo. A la derecha, una tabla muestra los pares de triangulación que se generan automáticamente con las monedas elegidas (Moneda Entrada / Moneda Salida).
 
-- **Directamente de Binance**: elegí monedas que se operen en el mercado Spot
-- **Desde el Escáner**: la herramienta tiene un escáner integrado que muestra monedas con actividad
+Podés elegir monedas de dos formas:
+
+- **Buscador de monedas**: escribí el nombre y seleccioná
+- **Scanner**: andá a **Bot Triangular → Scanner** para ver monedas con actividad
 
 Lo ideal es hacer un **mix** entre ambas fuentes.
 
@@ -35,7 +38,7 @@ Según tu plan, estas monedas **tienen que estar** en tu listado:
 | USDT + USDC | USDT y USDC |
 | USDT + USDC + EUR | USDT, USDC y EUR |
 
-Además de las monedas que acumulás, se recomienda tener como base: **BTC**, **ETH** y **BNB** (salvo que uses la fórmula conservadora, ver [Estrategias de Fórmulas](/estrategias/formulas)).
+Además se recomienda tener: **BTC**, **ETH** y **BNB** (salvo que uses la [fórmula conservadora](/estrategias/formulas)).
 
 ### Límites de pares
 
@@ -44,21 +47,39 @@ Además de las monedas que acumulás, se recomienda tener como base: **BTC**, **
 | **Low Cost** | 90 pares |
 | **Otros planes** | 160 pares |
 
-Si te pasás del límite, simplemente sacá monedas del listado y volvé a guardar.
+Si te pasás del límite, sacá monedas del listado y volvé a guardar.
 
-## 3. Filtro de órdenes abiertas
+## 3. Collector Activo
 
-Este valor determina cuántas operaciones simultáneas puede tener abiertas el bot **por cada moneda estable que acumulés**.
+El **Collector Activo** aparece con un ícono de gráfico. Indica que el bot colector está funcionando. Este bot actúa de forma automática: si la primera operación no se completa rápido, la cancela y libera capital. No necesitás configurar nada.
 
-Para más detalle sobre cómo funciona, consultá la guía del [Bot de Órdenes](/ecosistema/bot-ordenes).
+## 4. Bot Liquidador
 
-## 4. Monto por operación
+Tiene un **toggle** (interruptor) para activarlo o desactivarlo. Cuando está activado (verde), el liquidador va a cerrar triangulaciones anticipadamente si detecta que la ganancia está bajando pero sigue en positivo.
+
+<Tip>
+  Se recomienda dejarlo **activado** para asegurar ganancias antes de que una operación se dé vuelta.
+</Tip>
+
+## 5. Cantidad de órdenes
+
+Campo numérico que determina cuántas operaciones simultáneas puede tener abiertas el bot **por cada moneda estable que acumulés**.
+
+Para más detalle, consultá la guía del [Bot de Órdenes](/ecosistema/bot-ordenes).
+
+## 6. Stop operations
+
+Campo numérico que define la **cantidad máxima de stop loss diarios**. Cuando se alcanza este límite, el bot se apaga automáticamente.
+
+Para más detalle, consultá la guía del [Stop Day](/ecosistema/stop-day).
+
+## 7. Cantidad de USDT (monto por operación)
 
 Acá definís cuántos dólares (o equivalente) va a usar el bot en cada operación.
 
 ### Cálculo recomendado para el inicio
 
-La idea es arrancar usando el **50% del capital** y dejar el otro 50% como garantía.
+Usá el **50% del capital** y dejá el otro 50% como garantía.
 
 **Fórmula:**
 
@@ -66,58 +87,59 @@ La idea es arrancar usando el **50% del capital** y dejar el otro 50% como garan
 Monto por operación = Capital total / (Órdenes abiertas × Monedas estables × 2)
 ```
 
-### Ejemplos
-
-**Ejemplo 1**: $1,000 de capital, acumulás solo USDT, 3 órdenes abiertas:
+**Ejemplo**: $1,000 de capital, solo USDT, 3 órdenes abiertas:
 
 ```
-$1,000 / (3 × 1 × 2) = $1,000 / 6 = $166 por operación
+$1,000 / (3 × 1 × 2) = $166 por operación
 ```
 
-**Ejemplo 2**: $1,000 de capital, acumulás USDT y USDC, 2 órdenes abiertas:
+## 8. Profit mínimo
 
-```
-$1,000 / (2 × 2 × 2) = $1,000 / 8 = $125 por operación
-```
-
-<Tip>
-  Arrancar con el 50% es lo recomendado para el inicio. Una vez que tengas confianza con la herramienta, podés ajustar al 60%, 70% o incluso 100% del capital.
-</Tip>
-
-## 5. Profit mínimo
-
-Es el **porcentaje mínimo de ganancia** que debe tener una triangulación para que el bot la ejecute.
+Porcentaje mínimo de ganancia para que el bot ejecute una triangulación.
 
 | Valor | Comportamiento |
 |-------|---------------|
-| **0.55% a 0.70%** | Rango habitual. Más operaciones, profit moderado |
-| **0.90% o más** | Menos operaciones, pero de mayor porcentaje |
+| **0.3% a 0.7%** | Rango habitual. Más operaciones |
+| **0.9% o más** | Menos operaciones, mayor porcentaje |
 
-Podés ajustar este valor en cualquier momento según tu preferencia: más operaciones con menos profit, o menos operaciones con más profit.
+## 9. Solidity (Rangos)
 
-## 6. Rango Mínimo y Rango Máximo
+La sección **Solidity** contiene los parámetros de protección:
 
-Para la configuración detallada de estos valores, consultá la guía de [Rango Mínimo y Máximo](/ecosistema/rango-minimo-maximo).
+### Rango mínimo (%)
 
-En resumen:
+Funciona como un **Stop Loss**. Si el precio de la moneda baja este porcentaje durante la operación 2 de 3, el bot cancela y vende para cortar la pérdida.
 
-- **Rango Máximo** (Take Profit): entre **0.5% y 1%**
-- **Rango Mínimo** (Stop Loss): según tu perfil de riesgo
+| Estrategia | Valor sugerido | Observación |
+|------------|---------------|-------------|
+| **Conservadora** | 1% a 5% | Corta rápido pero puede saltar más seguido |
+| **Moderada** | 5% a 15% | Equilibrio entre protección y operatoria |
+| **Sin stop** | 100% | No actúa el rango mínimo |
 
-## 7. Guardar y activar
+### Rango máximo (%)
+
+Funciona como un **Take Profit**. Si el precio sube este porcentaje, el bot cancela la triangulación y vende directamente para asegurar la ganancia por diferencia de precio.
+
+Un valor de **0.5% a 1%** es lo habitual.
+
+<Warning>
+  Si querés probar un rango mínimo ajustado (1-5%), hacelo primero con operaciones de **$20 como máximo** para testear la estrategia sin arriesgar mucho capital.
+</Warning>
+
+## 10. Guardar y activar
 
 <Steps>
   <Step title="Guardá la configuración">
-    Hacé clic en **Guardar**. Si te aparece un cartel de "debe completar todos los campos", ignoralo y volvé a hacer clic en Guardar.
+    Hacé clic en **ACTUALIZAR**. Si te aparece un cartel de "debe completar todos los campos", ignoralo y volvé a hacer clic.
   </Step>
   <Step title="Esperá la confirmación del administrador">
-    **No actives la herramienta** hasta que el administrador de tu plataforma te confirme que la configuración está correcta y tu máquina está creada.
+    **No actives la herramienta** hasta que el administrador te confirme que la configuración está correcta y tu máquina está creada.
   </Step>
   <Step title="Verificá tu saldo de BNB">
-    Asegurate de tener al menos **$1 en BNB** en tu billetera Spot para cubrir las comisiones de operación. Cuanto más capital operes, más BNB vas a necesitar.
+    Asegurate de tener al menos **$1 en BNB** en tu billetera Spot.
   </Step>
   <Step title="Activá el bot">
-    Una vez confirmado todo, activá la herramienta desde el switch de activación.
+    En la barra superior de la plataforma vas a ver un indicador junto a **Bot Triangular**. Activalo desde ahí.
   </Step>
 </Steps>
 
@@ -125,13 +147,26 @@ En resumen:
 
 | Qué querés cambiar | ¿Hay que apagar el bot? |
 |--------------------|------------------------|
-| Órdenes abiertas, monto, profit, rangos | **No**, se puede cambiar en caliente |
+| Cantidad de órdenes, monto, profit, rangos | **No**, se puede cambiar en caliente |
 | Listado de monedas | **Sí**, hay que apagar y volver a encender |
 
 <Warning>
-  Al apagar y encender el bot se hace un **reinicio completo**. Las operaciones abiertas que estén en la etapa 2 de 3 no van a poder continuar automáticamente: vas a tener que cancelarlas y vender manualmente en Binance.
+  Al apagar y encender el bot se hace un **reinicio completo**. Las operaciones en etapa 2 de 3 no van a poder continuar automáticamente: vas a tener que cancelarlas y vender manualmente en Binance.
 </Warning>
 
 <Tip>
   Las monedas no hay que cambiarlas todos los días. Dejá una estrategia trabajar **mínimo una semana o 10 días** antes de modificar el listado.
 </Tip>
+
+## Menú del Bot Triangular
+
+Además de la configuración, en el menú **Bot Triangular** vas a encontrar:
+
+| Sección | Función |
+|---------|---------|
+| **Operaciones** | Historial de operaciones realizadas por el bot |
+| **Solidity** | Vista detallada de los eventos de rango mínimo/máximo |
+| **Liquidador** | Historial de actuaciones del bot liquidador |
+| **Señales** | Señales de oportunidades detectadas por el bot |
+| **Scanner** | Escáner de monedas para armar tu listado |
+| **Configuración** | La configuración que acabamos de ver |
