@@ -2,10 +2,14 @@
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
   "name": "Arbitrify Docs",
+  "logo": {
+    "light": "/images/logo-light.svg",
+    "dark": "/images/logo-dark.svg"
+  },
   "colors": {
-    "primary": "#6366F1",
-    "light": "#818CF8",
-    "dark": "#4F46E5"
+    "primary": "#00cc6a",
+    "light": "#00ff88",
+    "dark": "#00aa55"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -49,12 +53,5 @@
         ]
       }
     ]
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "footer": {
-    "socials": {}
   }
 }
