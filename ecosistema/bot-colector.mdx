@@ -1,0 +1,27 @@
+---
+title: Bot Colector
+description: Controla la primera orden de la triangulación y cancela operaciones lentas.
+---
+
+## ¿Qué hace el Bot Colector?
+
+El Bot Colector supervisa la **primera operación** de cada triangulación (operación 1 de 3). Su trabajo es asegurarse de que la orden inicial se ejecute en un tiempo razonable.
+
+## ¿Por qué es necesario?
+
+Cuando el bot de arbitraje detecta una oportunidad, coloca una orden de compra (por ejemplo, comprar BTC con USDT). Sin embargo, en el mercado cripto los precios cambian constantemente. Si esa orden tarda demasiado en completarse, es probable que los precios ya hayan cambiado y la triangulación ya no sea rentable.
+
+## ¿Cómo funciona?
+
+1. El bot de arbitraje detecta una oportunidad y coloca la orden de compra
+2. El Bot Colector **monitorea** esa orden en tiempo real
+3. Si detecta que la orden está tardando demasiado en completarse, **la cancela automáticamente**
+4. Al cancelar, **libera el capital** para que pueda ser usado en una nueva oportunidad más reciente
+
+## Configuración
+
+El Bot Colector actúa de forma **completamente automática**. No necesitás configurar nada: se activa solo cuando encendés tu bot de arbitraje.
+
+<Note>
+  Cuando el Bot Colector cancela una orden, te envía una notificación por email para que estés al tanto.
+</Note>
