@@ -1,0 +1,51 @@
+---
+title: Conectar tu Exchange
+description: Cómo cargar tu API de Binance en Arbitrify.
+---
+
+## Cargar tu API en la plataforma
+
+Una vez que tenés tu API creada y configurada en Binance, necesitás cargarla en Arbitrify para que la herramienta pueda operar.
+
+<Steps>
+  <Step title="Ingresá a tu cuenta de Arbitrify">
+    Iniciá sesión en la plataforma y dirigite a la sección **Mis Exchange**.
+  </Step>
+  <Step title="Seleccioná el exchange">
+    Elegí **Binance** de la lista de exchanges disponibles. Si querés acumular Bitcoin, seleccioná **Binance BTC**.
+  </Step>
+  <Step title="Cargá las claves">
+    Vas a ver campos para completar:
+
+    1. **Primer campo**: pegá tu **API Key** (clave pública)
+    2. **Segundo campo**: pegá tu **Secret Key** (clave secreta)
+    3. **Tercer campo**: dejalo vacío (no se usa)
+    4. **Cuarto campo**: poné cualquier valor (por ejemplo, "1")
+  </Step>
+  <Step title="Guardá">
+    Hacé clic afuera de los campos y luego en **Guardar**. La herramienta queda conectada a tu Binance.
+  </Step>
+</Steps>
+
+## Modificar una API existente
+
+Si necesitás cambiar los datos de tu API (por ejemplo, porque creaste una nueva):
+
+<Warning>
+  **No selecciones Binance de nuevo desde "Mis Exchange".** Si intentás cargar Binance por segunda vez, te va a dar error porque el exchange ya está registrado.
+</Warning>
+
+En su lugar:
+
+1. Andá a la sección donde ya tenés Binance cargado
+2. Hacé clic sobre **Binance** en tu lista de exchanges conectados
+3. Modificá los datos que necesites
+4. Guardá los cambios
+
+## Errores comunes
+
+| Problema | Causa | Solución |
+|----------|-------|----------|
+| "No se puede guardar" al agregar Binance | Ya tenés Binance cargado | Editá el exchange existente en lugar de crear uno nuevo |
+| La herramienta no conecta | API Key o Secret Key incorrectas | Verificá que copiaste bien ambas claves desde Binance |
+| La herramienta no puede operar | API sin permisos de Spot | Volvé a Binance y habilitá "Spot y Trading de margen" |
