@@ -1,0 +1,43 @@
+---
+title: Bot de Órdenes
+description: Gestiona la cantidad máxima de operaciones abiertas para optimizar el capital.
+---
+
+## ¿Qué hace el Bot de Órdenes?
+
+El Bot de Órdenes controla **cuántas operaciones puede abrir la herramienta de forma simultánea**. Es una herramienta de gestión de capital que evita que todo tu dinero quede comprometido en operaciones al mismo tiempo.
+
+## ¿Por qué es necesario?
+
+Supongamos que tenés $1,000 de capital y configurás cada operación en $100. En teoría, la herramienta podría abrir hasta 10 operaciones simultáneamente. Pero si el mercado se pone volátil, podrías tener las 10 operaciones abiertas sin que ninguna se complete. El Bot de Órdenes previene esta situación.
+
+## ¿Cómo funciona?
+
+Vos configurás la **cantidad máxima de órdenes abiertas**. Por ejemplo, si ponés 3:
+
+1. El bot detecta una oportunidad y abre la **operación 1**
+2. Detecta otra oportunidad y abre la **operación 2**
+3. Detecta una tercera y abre la **operación 3**
+4. Ahora, **no va a abrir una cuarta** hasta que al menos una de las tres se complete
+
+De esta forma, siempre tenés capital disponible y no quedás con todo comprometido.
+
+## Configuración
+
+El filtro de órdenes abiertas se configura en la sección **Configuración** de tu bot. El valor que pongas aplica **por cada moneda estable** que estés acumulando.
+
+<Warning>
+  Si acumulás USDT y USDC al mismo tiempo y ponés 2 como máximo de órdenes, vas a tener como máximo **4 operaciones abiertas** en total (2 por USDT + 2 por USDC).
+</Warning>
+
+### Recomendaciones iniciales
+
+| Monedas estables que acumulás | Órdenes abiertas sugeridas |
+|-------------------------------|---------------------------|
+| 1 moneda (ej: solo USDT) | 2 a 3 |
+| 2 monedas (ej: USDT + USDC) | 1 a 2 |
+| 3 monedas (ej: USDT + USDC + EUR) | 1 a 2 |
+
+<Tip>
+  Siempre conviene arrancar de menos a más. Empezá conservador y ajustá a medida que conozcas el comportamiento del mercado.
+</Tip>
