@@ -40,7 +40,8 @@
             "pages": [
               "setup/crear-api-binance",
               "setup/conectar-exchange",
-              "setup/configuracion-bot"
+              "setup/configuracion-bot",
+              "setup/glosario-configuracion"
             ]
           },
           {
