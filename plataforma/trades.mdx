@@ -1,0 +1,56 @@
+---
+title: Trades
+description: Historial de operaciones, resultados y detalles de cada trade.
+---
+
+La vista de Trades muestra todas las operaciones que ejecuto el bot, con sus resultados y detalles.
+
+## Resumen
+
+En la parte superior hay 5 tarjetas de resumen rapido:
+
+- **Totales** — cantidad total de trades
+- **Take Profit** — trades que cerraron en ganancia
+- **Stop Loss** — trades que cerraron en perdida
+- **Abiertos** — trades activos en este momento
+- **Cancelados** — trades cancelados automaticamente (timeout 24h)
+
+## Lista de trades
+
+Cada trade muestra:
+
+| Campo | Descripcion |
+|-------|-------------|
+| **Simbolo** | La moneda operada (ej: ETHUSDT) |
+| **Lado** | BUY (compra) |
+| **Monto** | Cuanto se invirtio en USDT |
+| **Precio de entrada** | Precio al que se compro |
+| **Estado** | `open`, `tp_hit`, `sl_hit`, `cancelled` |
+| **P&L** | Ganancia o perdida neta (con comisiones descontadas) |
+| **Fecha** | Cuando se ejecuto |
+
+### Estados de un trade
+
+| Estado | Significado |
+|--------|-------------|
+| `open` | El trade esta activo — esperando que se alcance el TP o SL |
+| `tp_hit` | Take Profit alcanzado — el trade cerro con ganancia |
+| `sl_hit` | Stop Loss alcanzado — el trade cerro con perdida controlada |
+| `cancelled` | Se cancelo automaticamente despues de 24 horas sin resolverse |
+
+## Detalle expandido
+
+Al hacer click en un trade, se expande mostrando informacion adicional:
+
+- **Precio de salida** — a cuanto se vendio
+- **Comision** — fee pagado en esa operacion (en USDT)
+- **Score de la senal** — calidad de la senal que origino el trade
+- **Signal ID** — identificador unico de la senal
+
+## Trades abiertos
+
+Desde la tarjeta "Abiertos" hay un link directo al Dashboard, donde podes ver el capital en juego y monitorear trades activos en tiempo real.
+
+<Info>
+  Los trades se actualizan en tiempo real via Supabase Realtime. No necesitas refrescar la pagina.
+</Info>

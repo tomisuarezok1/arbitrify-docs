@@ -1,0 +1,82 @@
+---
+title: Analisis tecnico
+description: RSI, Fibonacci, probabilidades y el veredicto del Salvador.
+---
+
+Cada senal en la vista de Mercado incluye un mini-analisis tecnico llamado **Salvador**. Aca explicamos que mide cada indicador.
+
+## RSI (Relative Strength Index)
+
+El RSI mide la velocidad y magnitud de los movimientos de precio recientes. Indica si una moneda esta sobrecomprada (precio subio mucho) o sobrevendida (precio bajo mucho).
+
+Se calcula usando el metodo **Wilder** sobre las ultimas 14 velas.
+
+| Rango | Estado | Interpretacion |
+|-------|--------|----------------|
+| 0-30 | Sobrevendida | El precio bajo mucho. Posible rebote al alza |
+| 30-50 | Neutral-bajo | Sin presion clara |
+| 50-70 | Neutral-alto | Leve tendencia alcista |
+| 70-100 | Sobrecomprada | El precio subio mucho. Posible correccion a la baja |
+
+<Info>
+  Un RSI bajo no garantiza un rebote — puede seguir bajando. Lo mismo al reves. Es un indicador de probabilidad, no de certeza.
+</Info>
+
+## Fibonacci (Retrocesos)
+
+Los niveles de Fibonacci son zonas de precio donde historicamente el mercado tiende a rebotar o frenarse. Se calculan sobre el rango reciente de la moneda (maximo y minimo).
+
+### Niveles clave
+
+| Nivel | Uso tipico |
+|-------|-----------|
+| **0.236** | Retroceso superficial — tendencia fuerte |
+| **0.382** | Retroceso moderado — zona de soporte comun |
+| **0.500** | Mitad del rango — punto de decision |
+| **0.618** | "Golden ratio" — zona de soporte/resistencia mas fuerte |
+| **0.786** | Retroceso profundo — la tendencia puede estar cambiando |
+
+### Soporte y Resistencia
+
+- **Soporte**: nivel de precio donde la moneda tiende a rebotar hacia arriba. Actua como un "piso".
+- **Resistencia**: nivel de precio donde tiende a frenarse la subida. Actua como un "techo".
+
+El Salvador muestra estos niveles para que puedas evaluar donde esta el precio actual en relacion a las zonas clave.
+
+## Modelo de probabilidades
+
+Un modelo de 5 factores que estima la probabilidad de exito de la operacion:
+
+| Factor | Que evalua |
+|--------|-----------|
+| **Momentum** | Direccion e intensidad del movimiento reciente |
+| **Volumen** | Si hay suficiente liquidez y participacion |
+| **RSI** | Si el precio esta en zona favorable (no sobrecomprado) |
+| **Distancia a soporte/resistencia** | Que tan cerca esta de una zona clave |
+| **Condiciones de mercado** | Estado general del mercado (Engine) |
+
+Cada factor contribuye a una probabilidad final expresada como porcentaje.
+
+## Veredicto
+
+El Salvador combina los 3 indicadores y emite un veredicto final:
+
+| Veredicto | Color | Significado |
+|-----------|-------|-------------|
+| **ENTRA** | Verde | Condiciones tecnicas favorables. La mayoria de factores se alinean |
+| **ESPERA** | Amarillo | Senales mixtas. Mejor esperar confirmacion o que la situacion se aclare |
+| **NO ENTRES** | Rojo | Condiciones desfavorables. Los indicadores sugieren riesgo |
+
+<Info>
+  En **modo Auto**, el bot ya considera estos factores en su decision de ejecutar o no. El Salvador es mas util en **modo Manual** como herramienta de analisis para ajustar tu estrategia.
+</Info>
+
+## Snapshot vs Tiempo real
+
+Cuando se genera una senal, Arbitrify captura un **snapshot** (foto) de los datos tecnicos en ese instante exacto. Esto es lo que ves por defecto al expandir una senal.
+
+Si queres ver los datos actualizados al momento presente, hace clic en el boton **"Actualizar"** dentro del Salvador. Esto consulta datos en tiempo real desde Binance.
+
+<Tip>
+  El snapshot es util para entender por que se genero la senal. Los datos en tiempo real son utiles para evaluar si la oportunidad sigue vigente.
+</Tip>

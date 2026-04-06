@@ -1,0 +1,81 @@
+---
+title: Elegir tu modo
+description: Auto o Manual — como configurar el comportamiento del bot.
+---
+
+Cuando creas tu cuenta en Arbitrify, lo primero que elegis es como queres que opere el bot.
+
+## Los dos modos
+
+### Auto (recomendado para empezar)
+
+Arbitrify configura todos los parametros por vos. El sistema optimiza automaticamente:
+- Score minimo de senales
+- Nivel de confianza
+- Trap risk maximo
+- Take Profit y Stop Loss
+- Operaciones por ciclo
+- Volumen minimo
+
+No tenes que tocar nada. Los parametros se ajustan automaticamente.
+
+### Manual
+
+Vos elegis cada parametro individualmente. Ideal si:
+- Tenes experiencia en trading
+- Queres probar estrategias especificas
+- Queres mas control sobre que senales opera el bot
+
+En modo Manual configuras:
+
+| Parametro | Que controla |
+|-----------|-------------|
+| **Score minimo** | Calidad minima de senal para operar (0-100) |
+| **Confianza** | BAJA, MEDIA o ALTA |
+| **Trap risk maximo** | Maximo riesgo de trampa aceptable |
+| **Take Profit** | % de ganancia objetivo |
+| **Stop Loss** | % de perdida maxima |
+| **Confirmaciones** | Cuantos indicadores deben coincidir |
+| **Ops por ciclo** | Trades maximos por ronda de analisis |
+| **Volumen minimo** | Liquidez minima requerida en la moneda |
+
+## Tamano de posicion
+
+Independientemente del modo, elegis que porcentaje de tu balance se usa en cada trade:
+
+| Valor | Nivel |
+|-------|-------|
+| 0.5% | Muy conservador |
+| 1% | Default recomendado |
+| 2-3% | Moderado |
+| 5% | Agresivo |
+
+**Ejemplo:** Balance de $10,000 con 1% → cada trade es de ~$100 USDT.
+
+## Onboarding
+
+Al registrarte, la app te guia por un wizard donde:
+
+1. **Elegis Auto o Manual**
+2. **Ajustas el trade size** (% del balance)
+3. **Ves un resumen** en lenguaje natural de como va a operar el bot
+
+Despues de esto, tu cuenta arranca en **modo Paper** con $10,000 virtuales.
+
+<Tip>
+  Podes cambiar entre Auto y Manual en cualquier momento desde **Settings**. No necesitas reiniciar nada — el cambio aplica en el proximo ciclo de analisis.
+</Tip>
+
+## Cuando pasar a Live
+
+Antes de activar el modo Live (operaciones reales), te recomendamos:
+
+1. Operar al menos una semana en Paper
+2. Revisar tu win rate y P&L en el Dashboard
+3. Estar conforme con el comportamiento del bot
+4. Tener tu API Key de Binance cargada
+5. Tener capital en USDT en tu billetera Spot de Binance
+
+<Warning>
+  El modo Live opera con capital real. Las perdidas son reales. Asegurate de entender como funciona el bot antes de activarlo.
+</Warning>

@@ -3,47 +3,54 @@ title: Crear API en Binance
 description: Paso a paso para generar y configurar tu API de Binance.
 ---
 
+Para que Arbitrify pueda operar en tu cuenta de Binance, necesitas crear una API Key con permisos de Spot Trading.
+
 ## Requisitos previos
 
-Necesitás tener una cuenta verificada en **Binance** con la autenticación de dos factores (2FA) activada.
+- Cuenta verificada en **Binance**
+- Autenticacion de dos factores (2FA) activada
 
 ## Paso a paso
 
 <Steps>
-  <Step title="Accedé a la gestión de API">
-    Ingresá a tu cuenta de Binance. Podés ir a **Cuentas → Gestión de API**, o desde tu billetera en el resumen, bajá hasta la sección **Cuenta → Gestión de API**.
+  <Step title="Accede a la gestion de API">
+    Ingresa a tu cuenta de Binance. Anda a **Cuentas → Gestion de API**, o desde tu billetera en el resumen, baja hasta **Cuenta → Gestion de API**.
   </Step>
-  <Step title="Desmarcá la opción de restricción">
-    Antes de crear la API, verificá si tenés tildada una opción de restricción. Si la ves marcada, **desmarcala**. Si no la desmarcás, Binance te va a permitir crear la API pero no editarla después.
+  <Step title="Desmarca la opcion de restriccion">
+    Antes de crear la API, verifica si tenes tildada una opcion de restriccion. Si la ves marcada, **desmarcala**. Si no la desmarcas, Binance te va a permitir crear la API pero no editarla despues.
   </Step>
-  <Step title="Creá la API">
-    Seleccioná **API generada por el sistema**, ponele el nombre que quieras y confirmá. Binance te va a pedir un **código de verificación** (por email, SMS o autenticador, según tu configuración de 2FA).
+  <Step title="Crea la API">
+    Selecciona **API generada por el sistema**, ponele el nombre que quieras (ej: "Arbitrify") y confirma. Binance te va a pedir un **codigo de verificacion** (por email, SMS o autenticador).
   </Step>
-  <Step title="Habilitá los permisos de Spot">
-    Una vez creada, la API viene solo con permisos de **lectura**. Necesitás habilitarla para operar:
+  <Step title="Habilita los permisos de Spot">
+    Una vez creada, la API viene solo con permisos de lectura. Necesitas habilitarla para operar:
 
-    1. Hacé clic en **Editar restricciones**
-    2. Habilitá **Spot y Trading de margen**
-    3. Guardá los cambios (te va a pedir de nuevo el código de verificación)
+    1. Hace clic en **Editar restricciones**
+    2. Habilita **Spot y Trading de margen**
+    3. Guarda los cambios (te va a pedir de nuevo el codigo de verificacion)
   </Step>
-  <Step title="Copiá las claves">
-    Vas a tener dos datos importantes:
+  <Step title="Copia las claves">
+    Vas a tener dos datos:
 
-    - **API Key** (clave pública) — se puede ver en cualquier momento
+    - **API Key** (clave publica) — se puede ver en cualquier momento
     - **Secret Key** (clave secreta) — **se muestra una sola vez**
 
-    Copiá ambas y guardalas en un lugar seguro.
+    Copia ambas y guardalas en un lugar seguro.
   </Step>
 </Steps>
 
 <Warning>
-  La **Secret Key** (clave secreta) solo se muestra una vez al momento de crear la API. Si la perdés, vas a tener que **eliminar la API y crear una nueva**.
+  La **Secret Key** solo se muestra una vez al crear la API. Si la perdes, vas a tener que eliminar la API y crear una nueva.
 </Warning>
 
 ## Errores comunes
 
-| Problema | Solución |
+| Problema | Solucion |
 |----------|----------|
-| No puedo editar la API después de crearla | Desmarcá la opción de restricción antes de crear la API |
-| Se me perdió la Secret Key | Eliminá la API y creá una nueva |
-| El código de verificación no llega | Esperá unos segundos y reintentá. Revisá spam si es por email |
+| No puedo editar la API despues de crearla | Desmarca la opcion de restriccion antes de crear la API |
+| Se me perdio la Secret Key | Elimina la API y crea una nueva |
+| El codigo de verificacion no llega | Espera unos segundos y reintenta. Revisa spam si es por email |
+
+<Info>
+  Arbitrify solo necesita permisos de **Spot Trading**. No habilites retiros ni futuros — no son necesarios y agregan riesgo innecesario a tu API.
+</Info>

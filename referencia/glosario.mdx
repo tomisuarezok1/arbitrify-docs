@@ -1,0 +1,131 @@
+---
+title: Glosario de configuracion
+description: Que significa cada parametro que usa el bot para decidir cuando operar.
+---
+
+Arbitrify analiza senales del mercado y aplica filtros antes de ejecutar una operacion. Aca te explicamos que significa cada uno.
+
+## Score
+
+Puntaje de calidad de la senal, de 0 a 100. Lo genera el sistema de analisis (Signal Brain) evaluando indicadores tecnicos como momentum, volumen y estructura de precio.
+
+| Valor | Significado |
+|-------|-------------|
+| 80-100 | Senal muy fuerte — confluencia de multiples indicadores |
+| 60-79 | Senal buena — la mayoria de indicadores alineados |
+| 40-59 | Senal debil — pocos indicadores a favor |
+| 0-39 | Senal muy debil — el bot la descarta |
+
+**Mas alto = mas selectivo.** Un score minimo de 65 significa que el bot solo opera cuando la senal tiene buena calidad.
+
+## Confianza
+
+Nivel de certeza del analisis, basado en cuantas "confirmaciones" tecnicas se alinean. Se expresa como BAJA, MEDIA o ALTA.
+
+| Nivel | Que implica |
+|-------|-------------|
+| **ALTA** | Multiples indicadores confirman la direccion. Menos operaciones, mas precisas. |
+| **MEDIA** | Confirmacion parcial. Balance entre frecuencia y precision. |
+| **BAJA** | Pocas confirmaciones. Mas operaciones pero mayor riesgo. |
+
+## Confirmaciones
+
+Cantidad de indicadores tecnicos que deben coincidir para que la senal sea valida. Cada confirmacion es una "segunda opinion" del mercado.
+
+Ejemplos de confirmaciones: volumen creciente, momentum positivo, precio sobre una media movil, RSI no sobrecomprado.
+
+**Mas confirmaciones = mas seguridad, menos operaciones.**
+
+## Trap Risk (Riesgo de trampa)
+
+Porcentaje de probabilidad de que la senal sea una "trampa" — un movimiento falso del precio que parece una oportunidad pero termina revirtiendo.
+
+| Valor | Significado |
+|-------|-------------|
+| 0-15 | Riesgo bajo — la senal se ve genuina |
+| 15-30 | Riesgo moderado — proceder con cautela |
+| 30-50 | Riesgo alto — alta probabilidad de ser un movimiento falso |
+| 50+ | Riesgo muy alto — el bot deberia descartarla |
+
+**El bot solo opera si el trap risk esta por debajo del maximo configurado.** Un maximo de 25 significa que descarta cualquier senal con mas de 25% de probabilidad de ser trampa.
+
+## Take Profit (TP)
+
+Porcentaje de ganancia al que el bot cierra la operacion automaticamente.
+
+**Ejemplo:** TP de 1.5% con una compra de $100 → el bot vende cuando el valor llega a $101.50.
+
+Un TP mas alto busca mas ganancia por operacion, pero tarda mas en alcanzarse (o puede no alcanzarse).
+
+## Stop Loss (SL)
+
+Porcentaje de perdida maxima tolerable. Si el precio baja este porcentaje, el bot cierra la operacion para limitar la perdida.
+
+**Ejemplo:** SL de 0.8% con una compra de $100 → el bot vende si el valor baja a $99.20.
+
+<Warning>
+  Un SL muy ajustado (ej: 0.3%) puede hacer que el bot cierre operaciones por ruido normal del mercado. Un SL muy amplio (ej: 3%) arriesga mas capital por operacion.
+</Warning>
+
+### Relacion TP/SL
+
+La relacion entre Take Profit y Stop Loss determina cuantas operaciones necesitas ganar para ser rentable:
+
+| TP | SL | Ratio | Win rate minimo para ser rentable |
+|----|------|-------|----------------------------------|
+| 1.5% | 0.8% | 1.9:1 | ~35% |
+| 1.0% | 0.5% | 2:1 | ~33% |
+| 0.5% | 0.3% | 1.7:1 | ~37% |
+
+**A mayor ratio TP/SL, menos operaciones necesitas ganar.**
+
+## Operaciones por ciclo
+
+Cantidad maxima de trades que el bot puede abrir en cada ronda de analisis (cada ~2 minutos). Limita la exposicion simultanea.
+
+| Valor | Comportamiento |
+|-------|---------------|
+| 1-2 | Conservador — pocas posiciones abiertas a la vez |
+| 3-4 | Moderado |
+| 5+ | Agresivo — mas exposicion simultanea |
+
+## Volumen minimo (5 min)
+
+Volumen de trading en los ultimos 5 minutos que debe tener una moneda para ser operada. Se mide en dolares.
+
+Monedas con poco volumen tienen mayor spread (diferencia entre precio de compra y venta) y mayor riesgo de slippage (que el precio se mueva entre que el bot decide y ejecuta).
+
+| Valor | Que filtra |
+|-------|-----------|
+| $500K+ | Solo monedas con buena liquidez |
+| $800K+ | Monedas con liquidez alta |
+| $1M+ | Solo las monedas mas liquidas del mercado |
+
+## Modo Auto vs Manual
+
+| Modo | Descripcion |
+|------|-------------|
+| **Auto** | Arbitrify configura y optimiza los parametros automaticamente. Se actualizan sin que tengas que hacer nada. |
+| **Manual** | Vos elegis cada parametro. Para usuarios que quieren control total. |
+
+<Tip>
+  Si recien empezas, usa **Auto**. Los parametros estan calibrados para un balance entre frecuencia y seguridad.
+</Tip>
+
+## Comisiones
+
+Cada operacion tiene una comision de **0.075%** (con descuento por pagar en BNB). Se cobra tanto en la compra (entry fee) como en la venta (exit fee).
+
+El P&L que ves en el Dashboard ya descuenta ambas comisiones — es tu ganancia neta real.
+
+## Market Gate
+
+Sistema automatico que bloquea la ejecucion de trades cuando las condiciones de mercado son riesgosas. No es configurable por el usuario — actua como una capa de proteccion del sistema.
+
+## Cooldown
+
+Despues de un Stop Loss en un simbolo, el bot espera **2 horas** antes de volver a operar esa misma moneda. Evita operar repetidamente en un simbolo que esta en tendencia negativa.
+
+## Blacklist dinamico
+
+Si un simbolo acumula **3 o mas trades con win rate menor al 30%** en las ultimas 48 horas, se bloquea automaticamente. Se desbloquea solo cuando las condiciones mejoran.

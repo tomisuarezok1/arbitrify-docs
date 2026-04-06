@@ -1,0 +1,58 @@
+---
+title: Dashboard
+description: Tu centro de control — balance, estadisticas, graficos y proyecciones.
+---
+
+El Dashboard es la pantalla principal de Arbitrify. Muestra el estado de tu cuenta, el rendimiento del bot y proyecciones basadas en datos reales.
+
+## Balance
+
+En la parte superior ves tu balance actual:
+
+- **Balance total** — tu capital disponible (paper o real segun el modo)
+- **Capital en juego** — cuanto tenes en trades abiertos en este momento
+
+En modo Paper, el balance arranca en $10,000 y se ajusta con las ganancias y perdidas de cada trade. En modo Live, refleja tu balance real de USDT en Binance.
+
+## Estadisticas
+
+Cuatro tarjetas de resumen:
+
+| Metrica | Que muestra |
+|---------|-------------|
+| **Total Trades** | Cantidad total de operaciones ejecutadas |
+| **Win Rate** | Porcentaje de trades que cerraron en Take Profit |
+| **P&L Total** | Ganancia o perdida neta acumulada (descontando comisiones) |
+| **Comisiones** | Total de fees pagados (0.075% por operacion) |
+
+<Info>
+  El P&L ya descuenta comisiones de entrada y salida. Es tu ganancia neta real.
+</Info>
+
+## Graficos
+
+El dashboard incluye graficos que muestran la evolucion de tu cuenta:
+
+- **P&L acumulado** — curva de ganancias/perdidas a lo largo del tiempo
+- **Trades por dia** — volumen de operaciones diarias
+
+## ROI Projector
+
+Seccion colapsable que proyecta tu rendimiento futuro basandose en tus datos reales:
+
+- **30 dias** — proyeccion a un mes
+- **90 dias** — proyeccion a un trimestre
+- **180 dias** — proyeccion a medio ano
+
+Las proyecciones usan tu win rate actual, P&L promedio por trade y frecuencia de operacion para estimar resultados futuros. Son orientativas — los mercados cambian.
+
+<Warning>
+  Si tu win rate actual es bajo, el proyector lo reflejara con resultados negativos. No es un error — es una senal de que hay que ajustar parametros o esperar a que el mercado se alinee mejor.
+</Warning>
+
+## Estado del bot
+
+En el header de la app ves el estado operativo:
+
+- **Punto verde pulsante + "Operando"** — el bot esta activo y analizando el mercado
+- **Punto gris** — el bot esta pausado o no conectado

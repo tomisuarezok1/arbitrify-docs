@@ -7,7 +7,7 @@
     "dark": "/images/logo-dark.svg"
   },
   "colors": {
-    "primary": "#00cc6a",
+    "primary": "#00e87a",
     "light": "#00ff88",
     "dark": "#00aa55"
   },
@@ -15,7 +15,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guías",
+        "tab": "Docs",
         "groups": [
           {
             "group": "Inicio",
@@ -25,30 +25,27 @@
             ]
           },
           {
-            "group": "Ecosistema de Bots",
+            "group": "La App",
             "pages": [
-              "ecosistema/overview",
-              "ecosistema/bot-colector",
-              "ecosistema/bot-ordenes",
-              "ecosistema/rango-minimo-maximo",
-              "ecosistema/bot-liquidador",
-              "ecosistema/stop-day"
+              "plataforma/dashboard",
+              "plataforma/trades",
+              "plataforma/mercado",
+              "plataforma/configuracion"
             ]
           },
           {
-            "group": "Primeros pasos",
+            "group": "Primeros Pasos",
             "pages": [
               "setup/crear-api-binance",
               "setup/conectar-exchange",
-              "setup/configuracion-bot",
-              "setup/glosario-configuracion"
+              "setup/elegir-modo"
             ]
           },
           {
-            "group": "Estrategias",
+            "group": "Referencia",
             "pages": [
-              "estrategias/formulas",
-              "estrategias/gestion-capital"
+              "referencia/glosario",
+              "referencia/analisis-tecnico"
             ]
           }
         ]

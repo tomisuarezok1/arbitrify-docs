@@ -1,68 +1,50 @@
 ---
-title: Conectar tu Exchange
-description: Cómo cargar tu API de Binance en Arbitrify.
+title: Conectar Binance
+description: Como cargar tu API Key de Binance en Arbitrify.
 ---
 
-## Cargar tu API en la plataforma
+Una vez que tenes tu API creada en Binance, necesitas cargarla en Arbitrify para que la plataforma pueda operar.
 
-Una vez que tenés tu API creada y configurada en Binance, necesitás cargarla en Arbitrify para que la herramienta pueda operar.
+<Info>
+  Si queres explorar la app primero sin conectar Binance, podes hacerlo. El modo Paper funciona sin API Key con $10,000 virtuales.
+</Info>
+
+## Cargar tu API
 
 <Steps>
-  <Step title="Ingresá a tu cuenta de Arbitrify">
-    Iniciá sesión en la plataforma con tu email y contraseña.
+  <Step title="Inicia sesion">
+    Entra a [app.arbitrify.com](https://app.arbitrify.com) con tu email y contrasena.
   </Step>
-  <Step title="Andá a Mis Exchanges">
-    En el menú lateral izquierdo, hacé clic en **Mis Exchanges**. Vas a ver un formulario con un selector de exchange y campos para las claves.
+  <Step title="Anda a Settings">
+    En la barra lateral, hace clic en **Settings** (icono de engranaje).
+  </Step>
+  <Step title="Ingresa tus claves">
+    En la seccion de API Keys, completa:
 
-    <Frame caption="Pantalla de Mis Exchanges en Arbitrify">
-      <img src="/images/mis-exchanges.png" alt="Pantalla Mis Exchanges" />
-    </Frame>
-  </Step>
-  <Step title="Seleccioná el exchange">
-    En el dropdown **Exchange**, elegí la opción correspondiente:
+    - **API Key**: pega tu clave publica
+    - **Secret Key**: pega tu clave secreta
 
-    | Opción | Uso |
-    |--------|-----|
-    | **Binance** | Para acumular monedas estables (USDT, USDC, EUR, FDUSD) |
-    | **Binance BTC** | Para acumular Bitcoin |
-    | **OKX** | Si operás con OKX en lugar de Binance |
+    Hace clic en **Guardar**.
   </Step>
-  <Step title="Cargá las claves">
-    Completá los campos del formulario:
-
-    - **Api Key**: pegá tu clave pública de la API
-    - **Secret Key**: pegá tu clave secreta
-    - **Pass Phrase**: dejalo vacío (no aplica para Binance)
-    - **Porcentaje**: poné cualquier valor (por ejemplo, "1")
-  </Step>
-  <Step title="Guardá">
-    Hacé clic en **GUARDAR**. Si todo está correcto, vas a ver tu exchange listado en la tabla de la derecha con su porcentaje.
+  <Step title="Verificacion automatica">
+    Arbitrify valida tus claves contra Binance en tiempo real. Si son correctas y tienen los permisos necesarios, vas a ver una confirmacion verde.
   </Step>
 </Steps>
 
-<Info>
-  A la derecha del formulario vas a ver una tabla que muestra los exchanges ya conectados con su porcentaje asignado. Si ya tenés Binance conectado, va a aparecer ahí.
-</Info>
-
-## Modificar una API existente
-
-Si necesitás cambiar los datos de tu API (por ejemplo, porque creaste una nueva):
-
 <Warning>
-  **No selecciones Binance de nuevo desde el formulario de la izquierda.** Si intentás cargar Binance por segunda vez, te va a dar error porque el exchange ya está registrado.
+  Tus API Keys se encriptan antes de guardarse. Ni el equipo de Arbitrify puede ver tus claves en texto plano.
 </Warning>
 
-En su lugar:
+## Que pasa despues de conectar
 
-1. En la tabla de la derecha, hacé clic sobre **Binance**
-2. Se van a cargar los datos actuales en el formulario
-3. Modificá los campos que necesites
-4. Hacé clic en **GUARDAR**
+- Tu balance real de USDT en Binance aparece en el Dashboard
+- El bot puede ejecutar ordenes reales cuando actives el modo Live
+- Mientras sigas en Paper, las keys estan guardadas pero no se usan para operar
 
 ## Errores comunes
 
-| Problema | Causa | Solución |
-|----------|-------|----------|
-| "No se puede guardar" al agregar Binance | Ya tenés Binance cargado | Editá el exchange existente desde la tabla de la derecha |
-| La herramienta no conecta | API Key o Secret Key incorrectas | Verificá que copiaste bien ambas claves desde Binance |
-| La herramienta no puede operar | API sin permisos de Spot | Volvé a Binance y habilitá "Spot y Trading de margen" |
+| Problema | Solucion |
+|----------|----------|
+| "API Key invalida" | Verifica que copiaste bien ambas claves desde Binance |
+| "Permisos insuficientes" | Anda a Binance y habilita **Spot y Trading de margen** en tu API |
+| No veo mi balance | Asegurate de tener USDT en tu billetera Spot (no en Funding ni Futures) |

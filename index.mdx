@@ -1,40 +1,52 @@
 ---
 title: Bienvenido a Arbitrify
-description: Documentación oficial del ecosistema de arbitraje financiero automático.
+description: Trading automatizado con inteligencia de mercado en Binance Spot.
 ---
 
-## ¿Qué es Arbitrify?
+## Que es Arbitrify?
 
-Arbitrify es un **ecosistema de arbitraje financiero automático** que opera sobre el mercado de criptomonedas. No se trata de un simple bot de trading, sino de un conjunto integrado de bots que trabajan en coordinación para detectar, ejecutar y proteger operaciones de arbitraje triangular en el mercado Spot.
+Arbitrify es una plataforma de trading automatizado que analiza el mercado crypto en tiempo real y ejecuta operaciones en Binance Spot por vos.
 
-La plataforma se conecta a tu cuenta de Binance a través de una API y opera de forma completamente automática, buscando oportunidades de arbitraje las 24 horas del día.
-
-## ¿Qué vas a encontrar en esta documentación?
+Cada 2 minutos, el sistema evalua 10 fuentes de datos de Binance (spot y futuros) para generar senales de compra. Cuando las condiciones son favorables, ejecuta trades automaticamente con Take Profit y Stop Loss predefinidos.
 
 <CardGroup cols={2}>
-  <Card title="Cómo funciona" icon="circle-info" href="/como-funciona">
-    Entendé el concepto de arbitraje triangular y cómo opera el ecosistema.
+  <Card title="Dashboard" icon="chart-line" href="/plataforma/dashboard">
+    Balance en tiempo real, estadisticas, graficos y proyecciones de ROI.
   </Card>
-  <Card title="Ecosistema de Bots" icon="robot" href="/ecosistema/overview">
-    Conocé cada bot del ecosistema y su función dentro de la operatoria.
+  <Card title="Senales de Mercado" icon="signal" href="/plataforma/mercado">
+    Mas de 500 senales con analisis tecnico integrado (RSI, Fibonacci, probabilidades).
   </Card>
-  <Card title="Primeros pasos" icon="rocket" href="/setup/crear-api-binance">
-    Configurá tu API de Binance y conectá tu exchange para empezar a operar.
+  <Card title="Trades" icon="arrows-rotate" href="/plataforma/trades">
+    Historial completo de operaciones con resultados de TP/SL.
   </Card>
-  <Card title="Estrategias" icon="chess" href="/estrategias/formulas">
-    Explorá las distintas fórmulas y estrategias de gestión de capital.
+  <Card title="Configuracion" icon="sliders" href="/plataforma/configuracion">
+    Modo Auto o Manual, tamano de posicion y parametros del bot.
   </Card>
 </CardGroup>
 
-## Antes de empezar
+## Como empezar
 
-Para usar Arbitrify necesitás:
+<Steps>
+  <Step title="Crea tu cuenta">
+    Registrate en [app.arbitrify.com](https://app.arbitrify.com) con tu email.
+  </Step>
+  <Step title="Conecta tu exchange">
+    Crea una API Key en Binance y cargala en la app. [Ver guia](/setup/crear-api-binance)
+  </Step>
+  <Step title="Elegi tu modo">
+    **Auto** deja que Arbitrify optimice todo. **Manual** te da control total de cada parametro. [Ver modos](/setup/elegir-modo)
+  </Step>
+  <Step title="Empeza en Paper">
+    Tu cuenta arranca en modo Paper (simulado) con $10,000 virtuales para que pruebes sin riesgo.
+  </Step>
+</Steps>
 
-1. Una cuenta activa en **Binance**
-2. Una **API de Binance** con permisos de Spot habilitados
-3. Capital disponible en tu billetera Spot (mínimo recomendado según tu plan)
-4. Un pequeño saldo en **BNB** para las comisiones de operación
+## Requisitos
 
-<Note>
-  Todas las puestas en marcha se realizan en un Meet 1 a 1 con un asesor. Si algo no te queda claro en esta documentación, vas a poder resolverlo en esa reunión.
-</Note>
+- Cuenta en [Binance](https://www.binance.com) (Spot habilitado)
+- API Key con permisos de Spot Trading
+- Capital en USDT para operar (o usar el modo Paper para practicar)
+
+<Info>
+  El modo Paper no requiere API Key ni capital real. Podes explorar toda la plataforma sin conectar Binance.
+</Info>
