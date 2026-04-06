@@ -1,83 +1,66 @@
 ---
-title: Como funciona
-description: El pipeline de analisis, senales y ejecucion de Arbitrify.
+title: Cómo funciona
+description: Análisis de mercado, señales y ejecución automatizada.
 ---
 
-## El pipeline
+## El ciclo de operación
 
-Arbitrify opera en un ciclo continuo de 3 etapas que se repite cada ~2 minutos:
+Arbitrify opera en un ciclo continuo que se repite cada ~2 minutos:
 
 ```
-Recoleccion de datos → Analisis + Senales → Ejecucion de trades
+Análisis de mercado → Generación de señales → Ejecución de trades
 ```
 
-### 1. Recoleccion de datos
+### 1. Análisis de mercado
 
-Cada 2 minutos, el sistema consulta 10 fuentes de Binance en paralelo:
-
-**Mercado Spot:**
-- BookTicker — precios bid/ask en tiempo real
-- Exchange Info — pares disponibles y reglas
-- Tickers (5 min y 1 hora) — precio, volumen y rango
-
-**Mercado de Futuros (indicadores lideres):**
-- Profundidad del libro de BTC (1000 niveles)
-- Funding rates y mark price de todos los futuros
-- Open Interest de BTC y ETH
-- Ratio Long/Short global (BTC, 5 min)
-- Ratio compra/venta de takers (BTC, 5 min)
-- Posiciones de top traders (BTC, 5 min)
+El sistema consulta en tiempo real múltiples fuentes de datos del mercado spot y de derivados de Binance. A partir de esa información, construye una imagen completa del estado del mercado.
 
 <Info>
-  El mercado de futuros es un indicador lider: los crashes no empiezan en spot, empiezan con liquidaciones en cascada en futuros. Arbitrify monitorea derivados para anticipar movimientos antes de que impacten al spot.
+  ¿Por qué derivados? Los crashes no empiezan en spot — empiezan con liquidaciones en cascada en el mercado de futuros. Arbitrify monitorea derivados como indicadores líderes para anticipar movimientos antes de que impacten al spot.
 </Info>
 
-### 2. Analisis y generacion de senales
+El análisis produce dos resultados en paralelo:
 
-Con los 10 datasets, el sistema corre dos motores en paralelo:
+- **Evaluación de riesgo** — determina si las condiciones del mercado son seguras para operar o si hay que frenar
+- **Generación de señales** — identifica oportunidades de compra en monedas individuales
 
-**Arbitrify Engine** — Evaluacion de riesgo del mercado general:
-- Clasifica el mercado: ALCISTA / NEUTRAL / BAJISTA / PRECAUCION
-- Detecta condiciones de trampa (trap risk)
-- Decide si es seguro operar o si hay que frenar
+### 2. Señales
 
-**Signal Brain** — Generacion de senales de compra:
-- Analiza cada moneda individualmente
-- Asigna un score (0-100), confianza (BAJA/MEDIA/ALTA) y trap risk
-- Define targets de Take Profit y Stop Loss
-- Solo emite senales que superan los filtros de calidad
+Cuando el sistema detecta una oportunidad, genera una señal con toda la información necesaria para decidir si operar:
 
-Cada senal que genera el Signal Brain incluye:
-- **Simbolo** — la moneda (ej: ETHUSDT)
-- **Score** — calidad de la senal (0-100)
+- **Score** — calidad de la señal (0-100)
 - **Confianza** — BAJA, MEDIA o ALTA
-- **Trap Risk** — probabilidad de movimiento falso (0-50+)
-- **TP/SL** — targets de salida automaticos
+- **Trap Risk** — probabilidad de que sea un movimiento falso
+- **TP/SL** — targets de Take Profit y Stop Loss
 
-### 3. Ejecucion
+Solo las señales que superan los filtros de calidad configurados por el usuario se convierten en trades.
+
+### 3. Ejecución
 
 Para cada usuario con el bot activo, Arbitrify:
 
-1. Verifica que el **market gate** este abierto (condiciones seguras)
-2. Filtra senales segun la configuracion del usuario (score minimo, confianza, etc.)
-3. Calcula el tamano de la posicion (% del balance configurado)
-4. Ejecuta la compra en Binance Spot (market order)
-5. Coloca una orden OCO automatica (Take Profit + Stop Loss)
-6. Monitorea el resultado cada minuto hasta que se cierra
+1. Verifica que las condiciones de mercado sean seguras (**market gate**)
+2. Filtra señales según la configuración del usuario
+3. Calcula el tamaño de la posición (% del balance configurado)
+4. Ejecuta la compra en Binance Spot
+5. Coloca una orden OCO automática (Take Profit + Stop Loss)
+6. Monitorea el resultado hasta que se cierra
 
 <Warning>
-  Si el mercado esta en condicion de PRECAUCION o el trap risk es alto, el engine bloquea la ejecucion automaticamente — incluso si hay senales disponibles.
+  Si las condiciones de mercado son riesgosas, el sistema bloquea la ejecución automáticamente — incluso si hay señales disponibles.
 </Warning>
 
-## Protecciones automaticas
+## Protecciones automáticas
 
-| Proteccion | Que hace |
+Arbitrify tiene múltiples capas de protección para cuidar tu capital:
+
+| Protección | Qué hace |
 |------------|----------|
 | **Market Gate** | Bloquea trades cuando las condiciones de mercado son riesgosas |
-| **Cooldown** | Tras un Stop Loss, espera 2 horas antes de volver a operar ese simbolo |
-| **Blacklist dinamico** | Bloquea simbolos con 3+ trades y win rate menor a 30% en las ultimas 48 horas. Se desbloquean solos al mejorar |
-| **OCO automatico** | Cada trade tiene TP y SL predefinidos — nunca queda una posicion sin proteccion |
-| **Auto-cancel** | Si un trade lleva mas de 24 horas abierto sin resolverse, se cancela automaticamente |
+| **Cooldown** | Tras un Stop Loss, espera antes de volver a operar ese símbolo |
+| **Blacklist dinámico** | Bloquea automáticamente símbolos con historial reciente negativo. Se desbloquean solos al mejorar |
+| **OCO automático** | Cada trade tiene TP y SL predefinidos — nunca queda una posición sin protección |
+| **Auto-cancel** | Si un trade lleva más de 24 horas abierto sin resolverse, se cancela automáticamente |
 
 ## Paper vs Live
 
@@ -85,10 +68,10 @@ Para cada usuario con el bot activo, Arbitrify:
 |---|---|---|
 | **Capital** | $10,000 virtuales | Tu balance real de USDT en Binance |
 | **API Key** | No necesaria | Requerida |
-| **Ejecucion** | Simulada (mismas senales, mismos precios) | Ordenes reales en Binance Spot |
+| **Ejecución** | Simulada (mismas señales, mismos precios) | Órdenes reales en Binance Spot |
 | **Riesgo** | Cero | Capital real en juego |
-| **Comisiones** | Simuladas (0.075% por operacion) | Reales (0.075% con descuento BNB) |
+| **Comisiones** | Simuladas (0.075% por operación) | Reales (0.075% con descuento BNB) |
 
 <Tip>
-  Empeza siempre en Paper para entender como opera el bot antes de arriesgar capital real.
+  Empezá siempre en Paper para entender cómo opera el bot antes de arriesgar capital real.
 </Tip>

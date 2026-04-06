@@ -1,82 +1,70 @@
 ---
-title: Analisis tecnico
+title: Análisis técnico
 description: RSI, Fibonacci, probabilidades y el veredicto del Salvador.
 ---
 
-Cada senal en la vista de Mercado incluye un mini-analisis tecnico llamado **Salvador**. Aca explicamos que mide cada indicador.
+Cada señal en la vista de Mercado incluye un mini-análisis técnico llamado **Salvador**. Acá explicamos qué mide cada indicador.
 
 ## RSI (Relative Strength Index)
 
-El RSI mide la velocidad y magnitud de los movimientos de precio recientes. Indica si una moneda esta sobrecomprada (precio subio mucho) o sobrevendida (precio bajo mucho).
+El RSI mide la velocidad y magnitud de los movimientos de precio recientes. Indica si una moneda está sobrecomprada (precio subió mucho) o sobrevendida (precio bajó mucho).
 
-Se calcula usando el metodo **Wilder** sobre las ultimas 14 velas.
-
-| Rango | Estado | Interpretacion |
+| Rango | Estado | Interpretación |
 |-------|--------|----------------|
-| 0-30 | Sobrevendida | El precio bajo mucho. Posible rebote al alza |
-| 30-50 | Neutral-bajo | Sin presion clara |
+| 0-30 | Sobrevendida | El precio bajó mucho. Posible rebote al alza |
+| 30-50 | Neutral-bajo | Sin presión clara |
 | 50-70 | Neutral-alto | Leve tendencia alcista |
-| 70-100 | Sobrecomprada | El precio subio mucho. Posible correccion a la baja |
+| 70-100 | Sobrecomprada | El precio subió mucho. Posible corrección a la baja |
 
 <Info>
-  Un RSI bajo no garantiza un rebote — puede seguir bajando. Lo mismo al reves. Es un indicador de probabilidad, no de certeza.
+  Un RSI bajo no garantiza un rebote — puede seguir bajando. Lo mismo al revés. Es un indicador de probabilidad, no de certeza.
 </Info>
 
 ## Fibonacci (Retrocesos)
 
-Los niveles de Fibonacci son zonas de precio donde historicamente el mercado tiende a rebotar o frenarse. Se calculan sobre el rango reciente de la moneda (maximo y minimo).
+Los niveles de Fibonacci son zonas de precio donde históricamente el mercado tiende a rebotar o frenarse. Se calculan sobre el rango reciente de la moneda (máximo y mínimo).
 
 ### Niveles clave
 
-| Nivel | Uso tipico |
+| Nivel | Uso típico |
 |-------|-----------|
 | **0.236** | Retroceso superficial — tendencia fuerte |
-| **0.382** | Retroceso moderado — zona de soporte comun |
-| **0.500** | Mitad del rango — punto de decision |
-| **0.618** | "Golden ratio" — zona de soporte/resistencia mas fuerte |
+| **0.382** | Retroceso moderado — zona de soporte común |
+| **0.500** | Mitad del rango — punto de decisión |
+| **0.618** | "Golden ratio" — zona de soporte/resistencia más fuerte |
 | **0.786** | Retroceso profundo — la tendencia puede estar cambiando |
 
 ### Soporte y Resistencia
 
-- **Soporte**: nivel de precio donde la moneda tiende a rebotar hacia arriba. Actua como un "piso".
-- **Resistencia**: nivel de precio donde tiende a frenarse la subida. Actua como un "techo".
+- **Soporte**: nivel de precio donde la moneda tiende a rebotar hacia arriba. Actúa como un "piso".
+- **Resistencia**: nivel de precio donde tiende a frenarse la subida. Actúa como un "techo".
 
-El Salvador muestra estos niveles para que puedas evaluar donde esta el precio actual en relacion a las zonas clave.
+El Salvador muestra estos niveles para que puedas evaluar dónde está el precio actual en relación a las zonas clave.
 
 ## Modelo de probabilidades
 
-Un modelo de 5 factores que estima la probabilidad de exito de la operacion:
-
-| Factor | Que evalua |
-|--------|-----------|
-| **Momentum** | Direccion e intensidad del movimiento reciente |
-| **Volumen** | Si hay suficiente liquidez y participacion |
-| **RSI** | Si el precio esta en zona favorable (no sobrecomprado) |
-| **Distancia a soporte/resistencia** | Que tan cerca esta de una zona clave |
-| **Condiciones de mercado** | Estado general del mercado (Engine) |
-
-Cada factor contribuye a una probabilidad final expresada como porcentaje.
+Un modelo propietario que estima la probabilidad de éxito de la operación combinando múltiples factores técnicos y condiciones de mercado. La probabilidad final se expresa como porcentaje.
 
 ## Veredicto
 
-El Salvador combina los 3 indicadores y emite un veredicto final:
+El Salvador combina los indicadores y emite un veredicto final:
 
 | Veredicto | Color | Significado |
 |-----------|-------|-------------|
-| **ENTRA** | Verde | Condiciones tecnicas favorables. La mayoria de factores se alinean |
-| **ESPERA** | Amarillo | Senales mixtas. Mejor esperar confirmacion o que la situacion se aclare |
+| **ENTRA** | Verde | Condiciones técnicas favorables. La mayoría de factores se alinean |
+| **ESPERA** | Amarillo | Señales mixtas. Mejor esperar confirmación o que la situación se aclare |
 | **NO ENTRES** | Rojo | Condiciones desfavorables. Los indicadores sugieren riesgo |
 
 <Info>
-  En **modo Auto**, el bot ya considera estos factores en su decision de ejecutar o no. El Salvador es mas util en **modo Manual** como herramienta de analisis para ajustar tu estrategia.
+  En **modo Auto**, el bot ya considera estos factores en su decisión de ejecutar o no. El Salvador es más útil en **modo Manual** como herramienta de análisis para ajustar tu estrategia.
 </Info>
 
 ## Snapshot vs Tiempo real
 
-Cuando se genera una senal, Arbitrify captura un **snapshot** (foto) de los datos tecnicos en ese instante exacto. Esto es lo que ves por defecto al expandir una senal.
+Cuando se genera una señal, Arbitrify captura un **snapshot** (foto) de los datos técnicos en ese instante exacto. Esto es lo que ves por defecto al expandir una señal.
 
-Si queres ver los datos actualizados al momento presente, hace clic en el boton **"Actualizar"** dentro del Salvador. Esto consulta datos en tiempo real desde Binance.
+Si querés ver los datos actualizados al momento presente, hacé clic en el botón **"Actualizar"** dentro del Salvador. Esto consulta datos en tiempo real.
 
 <Tip>
-  El snapshot es util para entender por que se genero la senal. Los datos en tiempo real son utiles para evaluar si la oportunidad sigue vigente.
+  El snapshot es útil para entender por qué se generó la señal. Los datos en tiempo real son útiles para evaluar si la oportunidad sigue vigente.
 </Tip>

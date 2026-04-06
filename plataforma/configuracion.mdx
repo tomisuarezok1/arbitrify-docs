@@ -1,62 +1,62 @@
 ---
-title: Configuracion
-description: Ajusta el comportamiento del bot — modo, tamano de posicion y parametros.
+title: Configuración
+description: Ajustá el comportamiento del bot — modo, tamaño de posición y parámetros.
 ---
 
-La vista de Settings te permite controlar como opera el bot.
+La vista de Settings te permite controlar cómo opera el bot.
 
-## Modo de operacion
+## Modo de operación
 
 Arbitrify tiene dos modos:
 
 ### Auto (recomendado)
 
-El sistema configura y optimiza los parametros automaticamente. Se actualizan sin que tengas que hacer nada.
+El sistema configura y optimiza los parámetros automáticamente. Se actualizan sin que tengas que hacer nada.
 
 Ideal para:
 - Usuarios nuevos
-- Quienes prefieren no gestionar parametros manualmente
-- Cuando no tenes una tesis clara sobre el mercado
+- Quienes prefieren no gestionar parámetros manualmente
+- Cuando no tenés una tesis clara sobre el mercado
 
 ### Manual
 
-Vos elegis cada parametro. Para usuarios que quieren control total sobre:
+Vos elegís cada parámetro. Para usuarios que quieren control total sobre:
 
-- Score minimo de senales
+- Score mínimo de señales
 - Nivel de confianza requerido
-- Trap risk maximo
+- Trap risk máximo
 - Take Profit y Stop Loss
 - Cantidad de confirmaciones
 - Operaciones por ciclo
-- Volumen minimo
+- Volumen mínimo
 
 <Tip>
-  Si recien empezas, usa **Auto**. Los parametros estan calibrados para un balance entre frecuencia de operaciones y seguridad. Podes cambiar a Manual en cualquier momento.
+  Si recién empezás, usá **Auto**. Los parámetros están calibrados para un balance entre frecuencia de operaciones y seguridad. Podés cambiar a Manual en cualquier momento.
 </Tip>
 
-## Tamano de posicion
+## Tamaño de posición
 
-El slider de **Trade Size** define que porcentaje de tu balance se usa en cada operacion.
+El slider de **Trade Size** define qué porcentaje de tu balance se usa en cada operación.
 
 | Porcentaje | Comportamiento |
 |------------|----------------|
-| **0.5%** | Muy conservador — posiciones pequenas |
+| **0.5%** | Muy conservador — posiciones pequeñas |
 | **1%** | Default — balance entre riesgo y oportunidad |
-| **2-3%** | Moderado — posiciones mas grandes |
-| **5%** | Agresivo — mayor exposicion por trade |
+| **2-3%** | Moderado — posiciones más grandes |
+| **5%** | Agresivo — mayor exposición por trade |
 
 El rango va de **0.5% a 5%** con un slider visual y preview del monto en USDT.
 
-**Ejemplo:** Con un balance de $10,000 y trade size del 1%, cada operacion sera de ~$100 USDT.
+**Ejemplo:** Con un balance de $10,000 y trade size del 1%, cada operación será de ~$100 USDT.
 
 <Warning>
-  Un porcentaje alto significa mas ganancia potencial por trade, pero tambien mas perdida si el Stop Loss se activa. Empeza bajo y subi cuando entiendas el comportamiento del bot.
+  Un porcentaje alto significa más ganancia potencial por trade, pero también más pérdida si el Stop Loss se activa. Empezá bajo y subí cuando entiendas el comportamiento del bot.
 </Warning>
 
-## Resumen de configuracion
+## Resumen de configuración
 
-Debajo de los controles hay un resumen en lenguaje natural que describe exactamente como va a operar el bot con tu configuracion actual. Por ejemplo:
+Debajo de los controles hay un resumen en lenguaje natural que describe exactamente cómo va a operar el bot con tu configuración actual. Por ejemplo:
 
-> "El bot va a operar en modo automatico, usando el 1% de tu balance por trade (~$100). Los parametros se optimizan automaticamente."
+> "El bot va a operar en modo automático, usando el 1% de tu balance por trade (~$100). Los parámetros se optimizan automáticamente."
 
-Esto te da claridad sobre que va a hacer el bot antes de activarlo.
+Esto te da claridad sobre qué va a hacer el bot antes de activarlo.

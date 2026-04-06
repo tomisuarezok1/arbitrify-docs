@@ -1,48 +1,48 @@
 ---
 title: Mercado
-description: Senales del mercado en tiempo real con analisis tecnico integrado.
+description: Señales del mercado en tiempo real con análisis técnico integrado.
 ---
 
-La vista de Mercado muestra todas las senales que genera el Signal Brain, con paginacion y analisis tecnico para cada una.
+La vista de Mercado muestra todas las señales que genera el sistema, con paginación y análisis técnico para cada una.
 
-## Senales
+## Señales
 
-Cada senal representa una oportunidad de trading detectada por el sistema. Se muestran las ultimas 500 senales con paginacion de 20 por pagina.
+Cada señal representa una oportunidad de trading detectada por el sistema. Se muestran las últimas 500 señales con paginación de 20 por página.
 
-Cada senal muestra:
+Cada señal muestra:
 
-| Campo | Descripcion |
+| Campo | Descripción |
 |-------|-------------|
-| **Simbolo** | La moneda (ej: SOLUSDT) |
-| **Score** | Calidad de la senal (0-100) |
+| **Símbolo** | La moneda (ej: SOLUSDT) |
+| **Score** | Calidad de la señal (0-100) |
 | **Confianza** | BAJA, MEDIA o ALTA |
 | **Trap Risk** | Probabilidad de movimiento falso |
 | **TP / SL** | Targets de Take Profit y Stop Loss |
-| **Timestamp** | Cuando se genero |
+| **Timestamp** | Cuándo se generó |
 
-## Senales operadas
+## Señales operadas
 
-Las senales que se convirtieron en trades muestran un badge especial:
+Las señales que se convirtieron en trades muestran un badge especial:
 
 | Badge | Significado |
 |-------|-------------|
-| **Punto pulsante azul** | Trade abierto — la operacion sigue activa |
+| **Punto pulsante azul** | Trade abierto — la operación sigue activa |
 | **Check verde + monto** | Take Profit alcanzado (ej: TP +$2.15) |
 | **X roja + monto** | Stop Loss alcanzado (ej: SL -$0.80) |
 
-## Salvador — Analisis tecnico
+## Salvador — Análisis técnico
 
-Al expandir una senal, aparece el **Salvador**: un mini-analisis tecnico que evalua la senal con 3 indicadores:
+Al expandir una señal, aparece el **Salvador**: un mini-análisis técnico que evalúa la señal con indicadores estándar de la industria:
 
 ### RSI (Relative Strength Index)
 
-Mide si la moneda esta sobrecomprada o sobrevendida en ese momento.
+Mide si la moneda está sobrecomprada o sobrevendida en ese momento.
 
-| Valor | Interpretacion |
+| Valor | Interpretación |
 |-------|---------------|
 | 0-30 | Sobrevendida — posible rebote |
 | 30-70 | Zona neutral |
-| 70-100 | Sobrecomprada — posible correccion |
+| 70-100 | Sobrecomprada — posible corrección |
 
 ### Fibonacci
 
@@ -53,12 +53,7 @@ Niveles de retroceso calculados sobre el rango reciente de la moneda. Ayudan a i
 
 ### Probabilidades
 
-Un modelo de 5 factores que estima la probabilidad de exito de la senal, basado en:
-- Momentum
-- Volumen
-- RSI
-- Distancia a soportes/resistencias
-- Condiciones generales del mercado
+Un modelo propietario que estima la probabilidad de éxito de la señal combinando múltiples factores técnicos y de mercado.
 
 ### Veredicto
 
@@ -66,14 +61,14 @@ El Salvador emite un veredicto final:
 
 | Veredicto | Significado |
 |-----------|-------------|
-| **ENTRA** | Las condiciones tecnicas favorecen la operacion |
-| **ESPERA** | Hay senales mixtas — mejor esperar confirmacion |
-| **NO ENTRES** | Las condiciones tecnicas no favorecen la operacion |
+| **ENTRA** | Las condiciones técnicas favorecen la operación |
+| **ESPERA** | Hay señales mixtas — mejor esperar confirmación |
+| **NO ENTRES** | Las condiciones técnicas no favorecen la operación |
 
 <Info>
-  El analisis tecnico se calcula con datos del momento exacto en que se genero la senal (snapshot). Podes hacer click en "Actualizar" para obtener datos en tiempo real.
+  El análisis técnico se calcula con datos del momento exacto en que se generó la señal (snapshot). Podés hacer click en "Actualizar" para obtener datos en tiempo real.
 </Info>
 
 <Tip>
-  El Salvador es informativo — en modo Auto, el bot ya considera estos factores en su decision. En modo Manual, te sirve como herramienta de analisis para decidir si ajustar tus parametros.
+  El Salvador es informativo — en modo Auto, el bot ya considera estos factores en su decisión. En modo Manual, te sirve como herramienta de análisis para decidir si ajustar tus parámetros.
 </Tip>
