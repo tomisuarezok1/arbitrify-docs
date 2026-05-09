@@ -1,77 +1,97 @@
 ---
 title: Cómo funciona
-description: Análisis de mercado, señales y ejecución automatizada.
+description: El ciclo de operación, los filtros que protegen tu capital y cómo decide cuándo operar.
 ---
 
-## El ciclo de operación
+## El ciclo
 
-Arbitrify opera en un ciclo continuo que se repite cada ~2 minutos:
+Arbitrify corre un ciclo continuo cada **2 minutos**, las 24 horas, los 7 días de la semana:
 
 ```
-Análisis de mercado → Generación de señales → Ejecución de trades
+Lectura del mercado → Generación de señales → Filtros de calidad → Ejecución
 ```
 
-### 1. Análisis de mercado
+Cuando el sistema detecta una oportunidad y pasa todos los filtros, abre la operación en Binance Spot por la cantidad que tengas configurada en tus tiers, le pone un Take Profit y un Stop Loss automáticos, y la cierra cuando se alcance cualquiera de los dos.
 
-El sistema consulta en tiempo real múltiples fuentes de datos del mercado spot y de derivados de Binance. A partir de esa información, construye una imagen completa del estado del mercado.
+## Qué mira el sistema
+
+Arbitrify no opera basado en una sola señal. En cada ciclo evalúa varias dimensiones del mercado para decidir si las condiciones son seguras.
+
+### Estado general del mercado
+
+Antes de mirar monedas individuales, el sistema chequea cómo está el mercado en general. Lo que evalúa:
+
+- **Salud de Bitcoin** — si BTC está fuerte, débil o lateral
+- **Tendencia** — quién está empujando el precio (compradores o vendedores)
+- **Presión en derivados** — el mercado de futuros suele moverse antes que el spot, y nos avisa si vienen liquidaciones en cascada
+- **Posicionamiento** — cómo está parada la mayoría de los traders en futuros
+- **Profundidad del libro** — cuánta liquidez real hay en BTC para soportar movimientos
+
+Todo esto se resume en un **veredicto del mercado** (Favorable / Precaución / Desfavorable) que ves en la pestaña Mercado.
 
 <Info>
-  ¿Por qué derivados? Los crashes no empiezan en spot — empiezan con liquidaciones en cascada en el mercado de futuros. Arbitrify monitorea derivados como indicadores líderes para anticipar movimientos antes de que impacten al spot.
+  ¿Por qué miramos derivados si operamos spot? Porque los crashes de cripto **no empiezan en spot**. Empiezan con liquidaciones masivas en futuros, y se trasladan al spot pocos minutos después. Mirar derivados es ver el problema antes de que llegue.
 </Info>
 
-El análisis produce dos resultados en paralelo:
+### Calidad de la señal
 
-- **Evaluación de riesgo** — determina si las condiciones del mercado son seguras para operar o si hay que frenar
-- **Generación de señales** — identifica oportunidades de compra en monedas individuales
+Si las condiciones generales son razonables, el sistema busca monedas concretas para operar. Cada candidata se evalúa con varios criterios:
 
-### 2. Señales
+- **Momentum** — si el precio está rebotando o cayendo
+- **Posición en el rango** — si está cerca de un piso técnico o de un techo
+- **Soporte en el libro** — si hay órdenes de compra reales sosteniéndola
+- **Volumen** — si hay liquidez suficiente para entrar y salir sin slippage
+- **Confirmaciones** — cuántos indicadores independientes apuntan en la misma dirección
 
-Cuando el sistema detecta una oportunidad, genera una señal con toda la información necesaria para decidir si operar:
+A cada candidata se le asigna un **score** (0–100) y un nivel de **confianza** (BAJA / MEDIA / ALTA). Solo las que superan los umbrales de calidad pasan al siguiente filtro.
 
-- **Score** — calidad de la señal (0-100)
-- **Confianza** — BAJA, MEDIA o ALTA
-- **Trap Risk** — probabilidad de que sea un movimiento falso
-- **TP/SL** — targets de Take Profit y Stop Loss
+### Verificación histórica
 
-Solo las señales que superan los filtros de calidad configurados por el usuario se convierten en trades.
+Antes de operar, cada señal pasa por una última capa que mira el comportamiento histórico de esa moneda y de combinaciones similares de mercado:
 
-### 3. Ejecución
+- ¿Esta moneda tuvo un comportamiento aceptable en condiciones parecidas?
+- ¿Está en una tendencia bajista de largo plazo que conviene evitar?
+- ¿Hay reglas específicas que bloqueen operar en este contexto?
 
-Para cada usuario con el bot activo, Arbitrify:
-
-1. Verifica que las condiciones de mercado sean seguras (**market gate**)
-2. Filtra señales según la configuración del usuario
-3. Calcula el tamaño de la posición (% del balance configurado)
-4. Ejecuta la compra en Binance Spot
-5. Coloca una orden OCO automática (Take Profit + Stop Loss)
-6. Monitorea el resultado hasta que se cierra
-
-<Warning>
-  Si las condiciones de mercado son riesgosas, el sistema bloquea la ejecución automáticamente — incluso si hay señales disponibles.
-</Warning>
+Las que no pasan se descartan. Las que sí, se ejecutan.
 
 ## Protecciones automáticas
 
-Arbitrify tiene múltiples capas de protección para cuidar tu capital:
+Además de los filtros de entrada, hay capas de protección que actúan después de abrir una operación:
 
 | Protección | Qué hace |
-|------------|----------|
-| **Market Gate** | Bloquea trades cuando las condiciones de mercado son riesgosas |
-| **Cooldown** | Tras un Stop Loss, espera antes de volver a operar ese símbolo |
-| **Blacklist dinámico** | Bloquea automáticamente símbolos con historial reciente negativo. Se desbloquean solos al mejorar |
-| **OCO automático** | Cada trade tiene TP y SL predefinidos — nunca queda una posición sin protección |
-| **Auto-cancel** | Si un trade lleva más de 24 horas abierto sin resolverse, se cancela automáticamente |
+|---|---|
+| **OCO automático** | Cada trade abre con Take Profit y Stop Loss en Binance. Nunca queda una posición sin protección. |
+| **Auto-cancel** | Si una operación lleva 24 horas abierta sin resolverse, se cierra automáticamente. |
+| **Cooldown** | Después de un Stop Loss en una moneda, esperamos un tiempo antes de volver a operarla. |
+| **Veto del mercado** | Si las condiciones globales son desfavorables, el sistema directamente no abre operaciones nuevas, aunque haya señales disponibles. |
+| **Blacklist dinámica** | Si una moneda viene acumulando malos resultados, se bloquea sola. Se desbloquea cuando mejora. |
 
-## Paper vs Live
+Algunas protecciones son automáticas, otras las controlás vos desde [Configuración](/plataforma/configuracion) — capital máximo en juego, máximo de trades abiertos, stop diario, etc.
 
-| | Paper | Live |
+## Simulación vs Real
+
+Arbitrify funciona idéntico en los dos modos: las mismas señales, los mismos filtros, los mismos precios del mercado. La única diferencia es **dónde se ejecuta**:
+
+| | Simulación | Real |
 |---|---|---|
-| **Capital** | $10,000 virtuales | Tu balance real de USDT en Binance |
-| **API Key** | No necesaria | Requerida |
-| **Ejecución** | Simulada (mismas señales, mismos precios) | Órdenes reales en Binance Spot |
-| **Riesgo** | Cero | Capital real en juego |
-| **Comisiones** | Simuladas (0.075% por operación) | Reales (0.075% con descuento BNB) |
+| **Origen del precio** | Binance en tiempo real | Binance en tiempo real |
+| **Ejecución** | Virtual (no toca tu cuenta) | Orden real en tu cuenta de Binance |
+| **API Key** | No hace falta | Requerida |
+| **Capital** | Balance virtual que vos elegís | Tu USDT en Binance Spot |
+| **Comisión Binance** | Simulada (0,075%) | Real (0,075% con descuento BNB) |
+| **Comisión Arbitrify** | Sin costo | 0,35% del monto operado, **solo si la operación gana** |
 
 <Tip>
-  Empezá siempre en Paper para entender cómo opera el bot antes de arriesgar capital real.
+  Simulación no es una versión limitada — corre el mismo motor que Real. Es la mejor forma de ver cómo se comporta el bot con tus configuraciones antes de poner plata real.
 </Tip>
+
+## Frecuencia y volumen esperable
+
+Cuántas operaciones por día abre el bot depende mucho de cómo esté el mercado y de tu configuración. Como referencia:
+
+- En mercados favorables con tu configuración estándar: **algunas operaciones por día**
+- En mercados desfavorables: **el bot puede no operar en horas o días enteros** — eso es el sistema haciendo su trabajo, no un error
+- Cada operación dura típicamente **minutos a pocas horas**, hasta que se cierre por TP, SL o auto-cancel
+
+El bot no fuerza operaciones para parecer activo. Si las condiciones no están, espera.

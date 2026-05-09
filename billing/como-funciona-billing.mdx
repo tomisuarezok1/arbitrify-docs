@@ -1,0 +1,98 @@
+---
+title: Cómo funciona el billing
+description: Modelo prepago, comisión solo en operaciones ganadoras, simulación gratis.
+---
+
+Arbitrify cobra **solo cuando vos ganás**. No hay suscripción mensual, no hay cuota fija. Si el bot abre operaciones que pierden, no te cobramos.
+
+## El modelo
+
+| | Simulación | Real |
+|---|---|---|
+| **Costo** | Sin costo, sin vencimiento | Prepago — recargás un saldo |
+| **Comisión Arbitrify** | No aplica | **0,35%** del monto operado |
+| **Cuándo se cobra** | Nunca | Solo en operaciones que cierran con **ganancia** |
+| **Comisión Binance** | Simulada (0,075%) | Real (0,075% con descuento BNB) |
+
+## Cómo se calcula la comisión
+
+Cuando una operación en modo Real cierra **con ganancia**, te cobramos **0,35% del monto realmente invertido**.
+
+Por ejemplo, si el bot opera con $100 USDT y la operación cierra con $1 de ganancia:
+
+```
+Comisión = $100 × 0,35% = $0,35
+```
+
+Esa comisión se debita automáticamente de tu **saldo prepago** de Arbitrify (no de tu cuenta de Binance). Tu ganancia real queda en Binance.
+
+<Info>
+  El **0,35% se calcula sobre el monto invertido**, no sobre la ganancia. Esto es porque la comisión está alineada con el riesgo que tomás — si arriesgás más capital, la comisión es proporcional, independientemente de cuánto haya sido la ganancia final.
+</Info>
+
+### Ejemplos
+
+| Monto invertido | Ganancia neta | Comisión Arbitrify |
+|---|---|---|
+| $10 | +$0,05 | $0,035 |
+| $50 | +$0,40 | $0,175 |
+| $100 | +$0,80 | $0,350 |
+| $500 | +$4,00 | $1,75 |
+
+### Operaciones que pierden
+
+**Si una operación cierra con pérdida o en cero, no te cobramos nada.** El sistema solo carga el 0,35% en operaciones con `P&L > 0`.
+
+Esto incluye:
+- Cierre por **Stop Loss**
+- Cierre **manual** con pérdida
+- Cancelación automática a las 24h con pérdida
+- Cierre por intervención externa con pérdida
+
+## Por qué este modelo
+
+- **Incentivos alineados.** Solo ganamos cuando vos ganás. Si el bot opera mal, no facturamos.
+- **No te castigamos por probar.** En Simulación nunca cobramos. Podés evaluar el sistema con cero costo.
+- **Proporcional al riesgo.** Si operás con tiers chicos, las comisiones son chicas. Si subís los montos, las comisiones suben con vos.
+
+## Saldo prepago
+
+Para operar en modo Real necesitás tener **crédito cargado**. Cargás un saldo desde la app, y a medida que el bot va ganando, debitamos las comisiones de ahí.
+
+| | |
+|---|---|
+| **Mínimo de carga** | $10 USD |
+| **Métodos** | Tarjeta de crédito o débito vía Stripe |
+| **Vencimiento** | Sin vencimiento |
+
+Cuando estás bajo de saldo, el bot **se pausa solo** para que no quede operando con deuda. Recargás y vuelve a operar.
+
+[Cómo recargar →](/billing/recargar-creditos)
+
+## Pausa por saldo bajo
+
+Antes de abrir cada nueva operación, el sistema chequea que tengas crédito suficiente para cubrir la comisión esperada de ese trade. Si no alcanza:
+
+- El bot **se pausa automáticamente**
+- Aparece una **pastilla "saldo bajo"** en el header del dashboard y en la pestaña Trades
+- Las operaciones que **ya están abiertas** se cobran normalmente cuando cierren — no las bloqueamos
+
+<Info>
+  Si una operación abierta cierra con ganancia y tu saldo no alcanza para cubrir la comisión, el cobro igual se hace y el saldo queda en negativo. La próxima recarga compensa primero ese saldo en rojo y lo que sobra queda como crédito disponible.
+</Info>
+
+## La simulación es gratis siempre
+
+En modo Simulación **no se cobra nada**:
+
+- No tenés que cargar saldo
+- Las comisiones de las operaciones simuladas no afectan tu crédito real
+- Podés usar Simulación indefinidamente sin costo
+
+Esto te deja probar tiers, presets y configuraciones sin gastar un centavo, hasta que estés cómodo para pasar a Real.
+
+## Reembolsos
+
+Reembolsamos solo en casos de **fallos del servicio** — por ejemplo, si una falla técnica nuestra te generó pérdidas demostrables. No hay período de reembolso por uso normal del producto.
+
+Para iniciar un reclamo, escribinos a `hola@arbitrify.com` con el detalle del incidente.

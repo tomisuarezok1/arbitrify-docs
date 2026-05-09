@@ -1,0 +1,74 @@
+---
+title: Recargar créditos
+description: Cargar saldo prepago vía Stripe, ver historial y manejar la pausa por saldo bajo.
+---
+
+Para operar en modo Real necesitás tener **crédito cargado** en tu cuenta de Arbitrify. La recarga se hace desde la app con tarjeta de crédito o débito.
+
+## Dónde se recarga
+
+En el header del dashboard tenés un **badge de créditos** con tu saldo actual. Si lo tocás, se abre el **modal de Créditos** con todo lo que necesitás:
+
+- A la izquierda: tu saldo actual + cómo funciona el cobro + link al historial
+- A la derecha: el formulario para cargar saldo nuevo
+
+## Cargar saldo
+
+<Steps>
+  <Step title="Abrí el modal de Créditos">
+    Tocá el badge de saldo en el header del dashboard.
+  </Step>
+  <Step title="Elegí el monto">
+    Podés escribir cualquier número, o usar uno de los **presets rápidos**:
+
+    | $10 | $25 | $50 | $100 | $250 |
+    |---|---|---|---|---|
+
+    El **mínimo** de carga es **$10 USD**.
+  </Step>
+  <Step title="Pagá con Stripe">
+    Apretá el botón de pago y se abre el checkout de Stripe en una pestaña nueva. Cargás los datos de tu tarjeta y confirmás.
+
+    Stripe procesa pagos con tarjeta de crédito y débito. No guardamos los datos de tu tarjeta — todo pasa por su infraestructura.
+  </Step>
+  <Step title="Saldo acreditado">
+    Apenas el pago se confirma (suele ser inmediato), el saldo aparece en tu cuenta y el bot vuelve a operar si estaba pausado por falta de crédito.
+  </Step>
+</Steps>
+
+<Info>
+  Stripe puede pedirte verificación adicional (3D Secure, código del banco, etc.) según tu tarjeta y país. Es parte del proceso de seguridad estándar.
+</Info>
+
+## Historial de recargas
+
+Dentro del modal de Créditos hay un link **"Ver historial →"** que abre una vista con todos tus movimientos:
+
+- **Recargas** — fecha, monto, estado (completado / pendiente / fallido)
+- **Cargos** — cada operación ganadora que generó comisión, con el trade asociado
+
+El historial te sirve para auditar exactamente cuánto pagaste y por qué.
+
+## Pausa automática
+
+Cuando el saldo se agota, el bot **se pausa solo** para que no quede operando sin crédito. Lo notás por:
+
+| Lugar | Indicador |
+|---|---|
+| **Header del dashboard** | Badge de crédito en rojo + pastilla "saldo bajo" |
+| **Pestaña Trades** | Banner de pausa al inicio |
+| **Pestaña Mercado** | Banner de pausa al inicio |
+
+Las **operaciones ya abiertas** siguen activas y se cobran normalmente cuando cierren — no se bloquean por la pausa. Solo se frena la apertura de operaciones nuevas.
+
+Para reactivar el bot, simplemente recargás. Apenas el saldo es positivo, el bot vuelve a operar en el siguiente ciclo.
+
+<Info>
+  Si una operación abierta cierra con ganancia mientras estás pausado y la comisión no entra en tu saldo, el cobro se hace igual y tu saldo queda **en negativo**. La próxima recarga descuenta primero ese rojo y lo que sobra queda disponible para operar.
+</Info>
+
+## Simulación: sin cargas
+
+Si solo querés operar en **Simulación**, no necesitás cargar nada. Las operaciones simuladas no consumen crédito real ni necesitan saldo positivo. Podés usar Simulación indefinidamente sin costo.
+
+[Cómo funciona el billing →](/billing/como-funciona-billing)

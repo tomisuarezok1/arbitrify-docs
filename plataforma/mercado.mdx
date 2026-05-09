@@ -1,74 +1,80 @@
 ---
 title: Mercado
-description: Señales del mercado en tiempo real con análisis técnico integrado.
+description: Estado del mercado en vivo, gráficos de BTC y ETH, y feed de señales.
 ---
 
-La vista de Mercado muestra todas las señales que genera el sistema, con paginación y análisis técnico para cada una.
+La pestaña **Mercado** te muestra cómo está leyendo el sistema las condiciones generales y qué señales está detectando en tiempo real. Es donde mirás el contexto que rodea las operaciones — útil para entender por qué el bot está operando mucho, poco, o nada.
 
-## Señales
+## Estado del mercado
 
-Cada señal representa una oportunidad de trading detectada por el sistema. Se muestran las últimas 500 señales con paginación de 20 por página.
+Arriba del todo, un panel con el **veredicto del mercado** y cuatro métricas que lo componen:
 
-Cada señal muestra:
+| Métrica | Qué mide |
+|---|---|
+| **Bitcoin** | Salud general de BTC — alcista, bajista, lateral |
+| **Tendencia** | Quién está empujando el precio (compradores o vendedores) |
+| **Presión** | Actividad de los takers — quién está apurado por entrar/salir |
+| **Posicionamiento** | Cómo está parada la mayoría en el mercado de futuros |
 
-| Campo | Descripción |
-|-------|-------------|
-| **Símbolo** | La moneda (ej: SOLUSDT) |
-| **Score** | Calidad de la señal (0-100) |
-| **Confianza** | BAJA, MEDIA o ALTA |
-| **Trap Risk** | Probabilidad de movimiento falso |
-| **TP / SL** | Targets de Take Profit y Stop Loss |
-| **Timestamp** | Cuándo se generó |
+A la derecha, un indicador de **trap risk** sobre 100. Cuanto más alto, más peligro de movimientos falsos en el mercado actual — el sistema se vuelve más restrictivo.
 
-## Señales operadas
-
-Las señales que se convirtieron en trades muestran un badge especial:
-
-| Badge | Significado |
-|-------|-------------|
-| **Punto pulsante azul** | Trade abierto — la operación sigue activa |
-| **Check verde + monto** | Take Profit alcanzado (ej: TP +$2.15) |
-| **X roja + monto** | Stop Loss alcanzado (ej: SL -$0.80) |
-
-## Salvador — Análisis técnico
-
-Al expandir una señal, aparece el **Salvador**: un mini-análisis técnico que evalúa la señal con indicadores estándar de la industria:
-
-### RSI (Relative Strength Index)
-
-Mide si la moneda está sobrecomprada o sobrevendida en ese momento.
-
-| Valor | Interpretación |
-|-------|---------------|
-| 0-30 | Sobrevendida — posible rebote |
-| 30-70 | Zona neutral |
-| 70-100 | Sobrecomprada — posible corrección |
-
-### Fibonacci
-
-Niveles de retroceso calculados sobre el rango reciente de la moneda. Ayudan a identificar zonas de soporte y resistencia.
-
-- **Soporte** — precio donde la moneda tiende a rebotar
-- **Resistencia** — precio donde tiende a frenarse
-
-### Probabilidades
-
-Un modelo propietario que estima la probabilidad de éxito de la señal combinando múltiples factores técnicos y de mercado.
-
-### Veredicto
-
-El Salvador emite un veredicto final:
+El veredicto general puede ser:
 
 | Veredicto | Significado |
-|-----------|-------------|
-| **ENTRA** | Las condiciones técnicas favorecen la operación |
-| **ESPERA** | Hay señales mixtas — mejor esperar confirmación |
-| **NO ENTRES** | Las condiciones técnicas no favorecen la operación |
+|---|---|
+| **Favorable** | Las condiciones permiten operar con confianza |
+| **Precaución** | Hay señales mixtas — el bot opera pero más selectivo |
+| **Desfavorable** | Las condiciones son riesgosas — el bot probablemente no abra trades nuevos |
 
 <Info>
-  El análisis técnico se calcula con datos del momento exacto en que se generó la señal (snapshot). Podés hacer click en "Actualizar" para obtener datos en tiempo real.
+  Cuando el veredicto es **Desfavorable**, el sistema bloquea la apertura de operaciones automáticamente. Los trades abiertos siguen activos hasta que toquen TP, SL o auto-cancel.
 </Info>
 
+## Gráficos de BTC y ETH
+
+Debajo del estado del mercado, dos gráficos en vivo de **BTCUSDT** y **ETHUSDT**. Te dan referencia visual rápida de cómo se está moviendo el mercado mientras mirás las señales.
+
+## Feed de señales
+
+La parte central de la pestaña: el **stream de las últimas señales** que el sistema generó. Las más recientes arriba, paginación de **20 por página**.
+
+Cada señal aparece como una card colapsada que muestra:
+
+| Campo | Qué es |
+|---|---|
+| **Símbolo** | La moneda detectada (ej. `SOLUSDT`) |
+| **Score** | Calidad de la señal (0–100) — el badge se colorea según umbral |
+| **Confianza** | BAJA / MEDIA / ALTA |
+| **Riesgo** | Nivel de trap risk de la señal |
+| **Auto / Manual** | Si pasó por todos los filtros del sistema o si era una señal cruda |
+| **Sim / Real** | En qué cuenta se evaluó |
+| **Hace cuánto** | Tiempo relativo desde que se generó |
+
+### Señales que se convirtieron en trade
+
+Si una señal terminó disparando una operación, aparece un **badge** en la card:
+
+| Badge | Significado |
+|---|---|
+| **Punto pulsante** | El trade está abierto en este momento |
+| **✓ +$X.XX** | Cerró en Take Profit con esa ganancia |
+| **✗ −$X.XX** | Cerró en Stop Loss con esa pérdida |
+
+Click en la señal y se abre, ya con el detalle de la operación: precio de entrada, TP, SL, cuánto duró, P&L final.
+
+### Detalle expandido
+
+Cuando expandís una señal, ves los detalles de qué la llevó a generarse:
+
+- **Buy / TP / SL** — los tres precios objetivo de la operación
+- **Etiquetas** — riesgo, confirmaciones, salud del mercado, razones humanizadas
+
+Las **razones** son frases cortas que explican por qué el sistema marcó esta señal — por ejemplo "rebote confirmado", "soporte fuerte", "presión compradora", etc. Se muestran las 3 más relevantes.
+
 <Tip>
-  El Salvador es informativo — en modo Auto, el bot ya considera estos factores en su decisión. En modo Manual, te sirve como herramienta de análisis para decidir si ajustar tus parámetros.
+  Si querés saber por qué el bot **no operó** una señal que ves en el feed, puede ser por filtros posteriores (verificación histórica de la moneda, blacklist, condiciones del mercado en ese segundo). El feed muestra señales detectadas, no todas terminan en operación.
 </Tip>
+
+## Frecuencia
+
+El sistema corre el ciclo de análisis cada **2 minutos**. Si el mercado está activo y favorable, vas a ver señales nuevas cada pocos minutos. Si está desfavorable, podés pasar horas o días sin que aparezcan señales — eso es el sistema haciendo su trabajo.

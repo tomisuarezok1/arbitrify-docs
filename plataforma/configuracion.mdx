@@ -1,62 +1,129 @@
 ---
 title: Configuración
-description: Ajustá el comportamiento del bot — modo, tamaño de posición y parámetros.
+description: Tiers de inversión, protecciones, capital, liberar capital, conexiones y parámetros avanzados.
 ---
 
-La vista de Settings te permite controlar cómo opera el bot.
+La pantalla de **Configuración** es donde controlás cómo opera el bot. Está organizada en **5 cards** principales más un acordeón con configuración avanzada al final.
 
-## Modo de operación
+## Configurás un modo a la vez
 
-Arbitrify tiene dos modos:
+Al entrar a Configuración, vas a ver una **barra arriba** que dice **"Editando Modo Real"** o **"Editando Modo Simulación"**, con un toggle para cambiar.
 
-### Auto (recomendado)
+Esto es importante: la configuración de Sim y de Real son **independientes**. Podés tener montos chicos en Real para arrancar tranquilo, mientras experimentás con montos más grandes en Simulación. Los cambios solo aplican al modo que estás editando.
 
-El sistema configura y optimiza los parámetros automáticamente. Se actualizan sin que tengas que hacer nada.
+<Info>
+  Hay un único bot operando, pero tiene dos configuraciones — una para Sim y otra para Real. Cuando cambiás el modo del bot desde el dashboard, el bot toma la configuración correspondiente.
+</Info>
 
-Ideal para:
-- Usuarios nuevos
-- Quienes prefieren no gestionar parámetros manualmente
-- Cuando no tenés una tesis clara sobre el mercado
+## 🎯 Estrategia
 
-### Manual
+Acá controlás **cuánto invierte el bot por cada señal**. Arbitrify usa un sistema de **tiers** (x1 a x10), donde cada tier representa un nivel de confianza de la señal:
 
-Vos elegís cada parámetro. Para usuarios que quieren control total sobre:
+- **x1** son las señales con más confianza
+- **x10** son las que tienen menos confianza pero aún pasan los filtros
 
-- Score mínimo de señales
-- Nivel de confianza requerido
-- Trap risk máximo
-- Take Profit y Stop Loss
-- Cantidad de confirmaciones
-- Operaciones por ciclo
-- Volumen mínimo
+Para cada tier configurás dos cosas:
+
+| Control | Qué hace |
+|---|---|
+| **Activar / desactivar** | Si ese tier opera o se ignora |
+| **Monto en USDT** | Cuánto invierte el bot cuando aparece una señal de ese tier |
+
+### Presets
+
+Para no tener que configurar tier por tier, hay tres presets que activan combinaciones predefinidas:
+
+| Preset | Tiers que activa | Para quién |
+|---|---|---|
+| **🛡️ Conservador** | x8, x9, x10 | Solo opera señales de alta calidad — menos frecuencia, más selectivo |
+| **⚖️ Moderado** | x5–x10 | Balance entre frecuencia y selectividad |
+| **🔥 Agresivo** | x1–x10 | Opera todas las señales que pasen los filtros — más frecuencia |
 
 <Tip>
-  Si recién empezás, usá **Auto**. Los parámetros están calibrados para un balance entre frecuencia de operaciones y seguridad. Podés cambiar a Manual en cualquier momento.
+  Los presets solo controlan **qué tiers están activos**, no los montos. Tus montos se mantienen — si ya tenías x5 configurado en $30 y aplicás Moderado, x5 sigue en $30.
 </Tip>
 
-## Tamaño de posición
+Si modificás los tiers manualmente y la combinación no coincide con ningún preset, vas a ver un badge **Custom**.
 
-El slider de **Trade Size** define qué porcentaje de tu balance se usa en cada operación.
+## 🛡️ Protecciones
 
-| Porcentaje | Comportamiento |
-|------------|----------------|
-| **0.5%** | Muy conservador — posiciones pequeñas |
-| **1%** | Default — balance entre riesgo y oportunidad |
-| **2-3%** | Moderado — posiciones más grandes |
-| **5%** | Agresivo — mayor exposición por trade |
+Límites para acotar el riesgo. Estos parámetros son los que más conviene tener configurados antes de activar Real.
 
-El rango va de **0.5% a 5%** con un slider visual y preview del monto en USDT.
-
-**Ejemplo:** Con un balance de $10,000 y trade size del 1%, cada operación será de ~$100 USDT.
+| Control | Qué controla |
+|---|---|
+| **Capital máximo** | Tope del USDT que puede estar en operaciones simultáneas. Si se llega al tope, el bot no abre más trades hasta que cierren los abiertos. |
+| **Stop diario** | Pérdida máxima del día. Si se alcanza, el bot deja de operar hasta el día siguiente. Configurable como % del balance o en USDT fijo. |
+| **Máx. trades abiertos** | Cuántas operaciones podés tener simultáneas. |
+| **Máx. trades por día** | Tope de operaciones nuevas por día. Si se llega, el bot espera al día siguiente. |
+| **Máx. trades por par** | Cuántas operaciones puede haber abiertas en una misma moneda al mismo tiempo. |
 
 <Warning>
-  Un porcentaje alto significa más ganancia potencial por trade, pero también más pérdida si el Stop Loss se activa. Empezá bajo y subí cuando entiendas el comportamiento del bot.
+  El **stop diario** se evalúa con el P&L realizado del día, no con el no realizado. Si tenés trades abiertos que están perdiendo, no cuentan hasta que se cierren.
 </Warning>
 
-## Resumen de configuración
+## 💰 Capital (solo Simulación)
 
-Debajo de los controles hay un resumen en lenguaje natural que describe exactamente cómo va a operar el bot con tu configuración actual. Por ejemplo:
+Esta card solo aparece en modo Simulación. Sirve para ajustar tu balance virtual cuando quieras — por ejemplo, si querés probar con más capital sin tener que rehacer la cuenta.
 
-> "El bot va a operar en modo automático, usando el 1% de tu balance por trade (~$100). Los parámetros se optimizan automáticamente."
+- Rango: **$100 a $1.000.000**
+- Step: $100
 
-Esto te da claridad sobre qué va a hacer el bot antes de activarlo.
+El cambio impacta inmediatamente en el balance que ves en el dashboard. Tu historial de trades de Simulación se mantiene.
+
+## ⚡ Liberar capital
+
+A veces quedan trades abiertos que no se mueven — están cerca de breakeven y pasan horas o días sin tocar TP ni SL. **Liberar capital** te ayuda a identificarlos para cerrarlos a mano.
+
+| Control | Qué hace |
+|---|---|
+| **Activar** | Prende o apaga la sección |
+| **PnL mínimo / máximo** | Rango de P&L (en %) que querés filtrar — típicamente algo cercano a cero |
+| **Antigüedad mínima** | Cuántas horas tienen que tener los trades para entrar al filtro |
+
+Abajo ves un **preview de los trades abiertos** que cumplen los criterios en este momento.
+
+<Warning>
+  Liberar capital **no cierra los trades automáticamente**. Define los criterios — el cierre lo hacés vos manualmente desde el dashboard o desde la pestaña Trades. Es una herramienta de filtrado, no de ejecución.
+</Warning>
+
+## 🔗 Conexiones
+
+Cargar y administrar tu API Key de Binance. Ver guía completa en [Conectar Binance](/setup/conectar-binance).
+
+Si **no** tenés Binance conectado:
+- Aparecen los inputs de **API Key** y **Secret Key**
+- Aviso de qué permisos necesitás (Spot Trading, sin retiros)
+- Botón **Conectar** que valida en tiempo real
+
+Si **ya** tenés Binance conectado:
+- Status **Conectado** con punto verde
+- Fila **Movimientos de cuenta** con botón **Sincronizar** para forzar update del balance
+- Fila **Desconectar cuenta** con botón rojo para desvincular
+
+## ⚠️ Configuración avanzada
+
+Acordeón al final, **cerrado por default**. Lo abrís solo si sabés qué estás tocando — son parámetros más finos que pueden cambiar mucho el comportamiento del bot.
+
+| Control | Qué hace |
+|---|---|
+| **Drawdown máximo** | Pérdida máxima desde el peak histórico. Si se alcanza, el bot pausa hasta que recuperes. |
+| **Cooldown** | Tiempo de espera después de un Stop Loss antes de volver a operar la misma moneda. |
+| **Trading hours** | Restricción horaria — el bot solo opera entre las horas que definís, en la zona horaria que elijas. |
+| **Blacklist** | Lista manual de monedas que no querés que el bot opere nunca. |
+
+<Info>
+  El **drawdown** es distinto al stop diario: el stop diario se reinicia cada día, el drawdown se mide desde tu peak histórico y persiste hasta que recuperes.
+</Info>
+
+## Guardar cambios
+
+Al modificar cualquier parámetro, aparece una **barra sticky abajo** que te muestra cuántos cambios hay sin guardar:
+
+- **Descartar** — vuelve al último estado guardado
+- **Guardar** — aplica los cambios al modo que estás editando
+
+Mientras no hagas Guardar, el bot sigue operando con la configuración anterior.
+
+## Tour de Configuración
+
+La primera vez que entrás te ofrecemos un **tour interactivo** de unos 2 minutos que te explica las 5 cards + el acordeón Avanzada. Si lo cerraste, lo podés volver a abrir desde el menú del avatar arriba a la derecha → **Tour de Configuración**.

@@ -1,56 +1,118 @@
 ---
 title: Trades
-description: Historial de operaciones, resultados y detalles de cada trade.
+description: Historial completo de operaciones, con filtros, cierre manual y cierre masivo.
 ---
 
-La vista de Trades muestra todas las operaciones que ejecutó el bot, con sus resultados y detalles.
+La pestaña **Trades** es el detalle granular de todas las operaciones — abiertas, ganadas y perdidas. La usás para auditar lo que el bot hizo y, si querés, intervenir manualmente.
 
-## Resumen
+## Resumen arriba
 
-En la parte superior hay 5 tarjetas de resumen rápido:
+Seis cards que resumen tu actividad en el período seleccionado:
 
-- **Totales** — cantidad total de trades
-- **Take Profit** — trades que cerraron en ganancia
-- **Stop Loss** — trades que cerraron en pérdida
-- **Abiertos** — trades activos en este momento
-- **Cancelados** — trades cancelados automáticamente (timeout 24h)
+| Card | Qué muestra |
+|---|---|
+| **Totales** | Cantidad total de operaciones |
+| **Abiertos** | Cuántas siguen activas ahora mismo |
+| **Ganados** | Cuántas cerraron con ganancia |
+| **Perdidos** | Cuántas cerraron con pérdida |
+| **Win Rate** | Porcentaje de operaciones ganadas (sobre las cerradas) |
+| **Duración promedio** | Tiempo medio que tardan en cerrarse, con tendencia 15d |
 
-## Lista de trades
+Las cards también funcionan como **filtros**: hacés click en "Ganados" y la lista de abajo te muestra solo esos.
 
-Cada trade muestra:
+## Filtros
+
+Arriba de la lista hay varios controles:
+
+- **Toggle Sim/Real** — qué modo querés ver
+- **Pastilla "saldo bajo"** — aparece solo si el bot está pausado por falta de crédito en Real
+- **Botón Cerrar selección** — para cierre masivo (ver más abajo)
+- **Verificar en Binance** — solo en Real, fuerza una sincronización con Binance para detectar trades cerrados externamente
+- **Filtro de fechas** — Hoy, Ayer, 7d, 15d, 30d, Histórico, Custom
+- **Búsqueda por símbolo** — filtra solo trades de una moneda específica
+
+## La lista
+
+Cada operación muestra:
 
 | Campo | Descripción |
-|-------|-------------|
-| **Símbolo** | La moneda operada (ej: ETHUSDT) |
-| **Lado** | BUY (compra) |
-| **Monto** | Cuánto se invirtió en USDT |
-| **Precio de entrada** | Precio al que se compró |
-| **Estado** | `open`, `tp_hit`, `sl_hit`, `cancelled` |
-| **P&L** | Ganancia o pérdida neta (con comisiones descontadas) |
+|---|---|
+| **Símbolo** | La moneda operada (ej. `ETHUSDT`) |
+| **Modo** | Sim o Real |
+| **Estado** | El estado actual del trade — ver tabla abajo |
+| **Monto** | Cuánto USDT se invirtió |
+| **Precio de entrada** | A qué precio se compró |
+| **Precio de salida** | A qué precio se vendió (si ya cerró) |
+| **P&L** | Ganancia o pérdida neta, con comisiones descontadas |
 | **Fecha** | Cuándo se ejecutó |
 
 ### Estados de un trade
 
+#### Trades abiertos
+
 | Estado | Significado |
-|--------|-------------|
-| `open` | El trade está activo — esperando que se alcance el TP o SL |
-| `tp_hit` | Take Profit alcanzado — el trade cerró con ganancia |
-| `sl_hit` | Stop Loss alcanzado — el trade cerró con pérdida controlada |
-| `cancelled` | Se canceló automáticamente después de 24 horas sin resolverse |
+|---|---|
+| **Pending** | La señal está siendo procesada, todavía no se ejecutó la orden de compra |
+| **Filled** | Compra ejecutada, esperando colocar el OCO (Take Profit + Stop Loss) |
+| **OCO Placed** | Compra y OCO ya colocados — esperando que toque TP o SL |
+| **Closing** | Cierre en progreso (manual o por SL/TP) |
+| **Closing Failed** | El cierre falló — usualmente requiere intervención manual desde Binance |
+
+#### Trades cerrados
+
+| Estado | Significado |
+|---|---|
+| **TP Hit** | Llegó al Take Profit — operación cerrada con ganancia |
+| **SL Hit** | Llegó al Stop Loss — operación cerrada con pérdida controlada |
+| **Manual Close** | Vos lo cerraste a mano antes de que toque TP o SL |
+| **Cancelled** | Se canceló automáticamente después de 24h sin resolverse |
 
 ## Detalle expandido
 
-Al hacer click en un trade, se expande mostrando información adicional:
+Hacés click en una operación y se expande mostrando información extra:
 
-- **Precio de salida** — a cuánto se vendió
-- **Comisión** — fee pagado en esa operación (en USDT)
-- **Score de la señal** — calidad de la señal que originó el trade
-- **Signal ID** — identificador único de la señal
+- **Comisión Binance** pagada en esa operación
+- **Comisión Arbitrify** (si aplica — solo en Real con ganancia)
+- **Score y confianza** de la señal que originó el trade
+- **Razones** que motivaron la señal (humanizadas)
+- **Identificadores** internos para soporte si hace falta
 
-## Trades abiertos
+## Cerrar un trade manualmente
 
-Desde la tarjeta "Abiertos" hay un link directo al Dashboard, donde podés ver el capital en juego y monitorear trades activos en tiempo real.
+A veces querés cerrar una operación antes de que toque TP o SL — porque la moneda se está moviendo raro, porque querés liberar capital, etc.
+
+<Steps>
+  <Step title="Encontrá el trade">
+    Filtrá por **Abiertos** para ver solo los activos.
+  </Step>
+  <Step title="Cerralo">
+    Cada trade abierto tiene un botón **Cerrar**. Apretarlo coloca una orden de venta a mercado en Binance al precio actual.
+  </Step>
+  <Step title="Verificá el resultado">
+    El estado pasa a **Manual Close** y el P&L queda fijado a lo que sea que dio el cierre.
+  </Step>
+</Steps>
+
+<Warning>
+  Cerrar un trade a mercado puede tener **slippage**, especialmente en monedas con poca liquidez. El precio que recibís puede ser un poco peor que el que ves en pantalla.
+</Warning>
+
+## Cerrar varios trades a la vez
+
+Si querés liberar capital rápido — por ejemplo si entran muchos trades a la vez y todos están atascados — el botón **Cerrar selección** te deja:
+
+1. Marcar varios trades con un checkbox
+2. Apretar **Cerrar selección**
+3. Confirmar — el sistema los cierra todos en paralelo
+
+También podés configurar un **cierre automático con criterios** desde Configuración → [Liberar capital](/plataforma/configuracion#liberar-capital), que filtra qué trades viejos te conviene cerrar y los marca para que vos los cierres con un click.
+
+## Verificar en Binance
+
+A veces un trade puede cerrarse fuera de Arbitrify — por ejemplo si vos cancelás manualmente la orden OCO desde el panel de Binance. En esos casos el bot no se entera al toque y el trade aparece con estado raro.
+
+El botón **Verificar en Binance** (solo visible en modo Real) fuerza una sincronización: lee el estado real de tus órdenes en Binance y reconcilia los trades. Útil cuando ves discrepancias.
 
 <Info>
-  Los trades se actualizan en tiempo real. No necesitás refrescar la página.
+  El sistema sincroniza solo cada cierto tiempo. Pero si querés actualizar al toque (por ejemplo después de operar manualmente en Binance), apretás Verificar.
 </Info>

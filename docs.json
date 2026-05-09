@@ -25,6 +25,14 @@
             ]
           },
           {
+            "group": "Primeros pasos",
+            "pages": [
+              "setup/crear-cuenta",
+              "setup/crear-api-binance",
+              "setup/conectar-binance"
+            ]
+          },
+          {
             "group": "La App",
             "pages": [
               "plataforma/dashboard",
@@ -34,18 +42,16 @@
             ]
           },
           {
-            "group": "Primeros Pasos",
+            "group": "Créditos y billing",
             "pages": [
-              "setup/crear-api-binance",
-              "setup/conectar-exchange",
-              "setup/elegir-modo"
+              "billing/como-funciona-billing",
+              "billing/recargar-creditos"
             ]
           },
           {
             "group": "Referencia",
             "pages": [
-              "referencia/glosario",
-              "referencia/analisis-tecnico"
+              "referencia/glosario"
             ]
           }
         ]

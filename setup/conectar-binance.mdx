@@ -1,0 +1,77 @@
+---
+title: Conectar Binance
+description: Cargar la API Key en Arbitrify, verificar la conexión y pasar a modo Real.
+---
+
+Una vez que [creaste tu API Key en Binance](/setup/crear-api-binance), la cargás en Arbitrify y el bot ya puede operar en tu cuenta real.
+
+<Info>
+  Conectar Binance no activa el modo Real automáticamente. Las claves se guardan, pero el bot sigue en simulación hasta que vos cambies el modo desde el dashboard.
+</Info>
+
+## Cargar tus claves
+
+<Steps>
+  <Step title="Andá a Configuración">
+    En la app, abrí **Configuración** desde el menú lateral o desde el avatar arriba a la derecha.
+  </Step>
+  <Step title="Abrí la card Conexiones">
+    Bajá hasta la card **🔗 Conexiones**. Si todavía no conectaste Binance, vas a ver dos campos: **API Key** y **Secret Key**.
+  </Step>
+  <Step title="Pegá las dos claves">
+    - **API Key**: la pública (la que se puede ver cuando quieras desde Binance)
+    - **Secret Key**: la privada (la que copiaste cuando creaste la API)
+
+    Apretá **Conectar**. Arbitrify valida las claves contra Binance en tiempo real.
+  </Step>
+  <Step title="Confirmá la conexión">
+    Si las claves son válidas y tienen los permisos correctos, la card pasa al estado **Conectado** con un punto verde. Ya podés cambiar al modo Real cuando quieras.
+  </Step>
+</Steps>
+
+<Warning>
+  Tus API Keys se encriptan antes de guardarse en nuestra base de datos. Ni el equipo de Arbitrify puede verlas en texto plano.
+</Warning>
+
+## Qué cambia después de conectar
+
+- En el header del dashboard aparece tu **balance real de USDT** de Binance Spot
+- Podés activar el modo Real desde el toggle del header (necesitás tener crédito cargado — ver [Recargar créditos](/billing/recargar-creditos))
+- Tu balance virtual de simulación queda intacto — son cuentas separadas
+
+## Sincronizar movimientos
+
+Dentro de la card **Conexiones** hay una fila **Movimientos de cuenta** con un botón **Sincronizar**. Lo usás para forzar una actualización del balance real desde Binance — útil si acabás de depositar o retirar USDT y querés que el dashboard lo refleje al toque.
+
+El sistema también sincroniza periódicamente solo, así que en general no hace falta apretarlo.
+
+## Desconectar Binance
+
+Si en algún momento querés desvincular Binance de Arbitrify:
+
+<Steps>
+  <Step title="Configuración → Conexiones">
+    Abrí la card **Conexiones**.
+  </Step>
+  <Step title="Apretá Desconectar">
+    En la fila **Desconectar cuenta**, hacé clic en el botón rojo **Desconectar**.
+  </Step>
+  <Step title="Confirmá">
+    El sistema borra las API Keys, te vuelve a modo Simulación y desactiva el bot.
+  </Step>
+</Steps>
+
+<Info>
+  Desconectar **no afecta tu cuenta de Binance**. Solo elimina las claves de Arbitrify. Los trades históricos (abiertos y cerrados) siguen registrados en tu cuenta.
+</Info>
+
+Si después querés volver a conectar, repetís el proceso de carga con la misma API Key (si la conservaste) o creando una nueva.
+
+## Errores comunes
+
+| Problema | Solución |
+|---|---|
+| **"API Key inválida"** | Verificá que copiaste las dos claves enteras desde Binance, sin espacios. |
+| **"Permisos insuficientes"** | En Binance, editá la API y habilitá **Spot y Trading de margen**. |
+| **No veo mi balance** | Asegurate de tener USDT en **Spot Wallet** (no en Funding ni Futures). |
+| **Conectó pero el bot no opera** | El modo Real necesita crédito cargado. Revisá tu saldo en el header — si está en cero, [cargá créditos](/billing/recargar-creditos). |

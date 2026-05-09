@@ -1,129 +1,155 @@
 ---
-title: Glosario de configuración
-description: Qué significa cada parámetro que usa el bot para decidir cuándo operar.
+title: Glosario
+description: Definiciones rápidas de los términos que aparecen en la app.
 ---
 
-Arbitrify analiza señales del mercado y aplica filtros antes de ejecutar una operación. Acá te explicamos qué significa cada uno.
+## Tiers
+
+Los **tiers** son niveles de confianza de las señales del bot, numerados de **x1** (más confianza) a **x10** (menos confianza pero todavía válida). Para cada tier configurás:
+
+- **Si está activo** o no
+- **Cuánto USDT** quiere invertir cuando aparece una señal de ese tier
+
+Cada modo (Sim y Real) tiene su propia configuración de tiers, independiente.
+
+[Ver Configuración](/plataforma/configuracion#estrategia)
 
 ## Score
 
-Puntaje de calidad de la señal, de 0 a 100. Lo genera el sistema de análisis evaluando múltiples indicadores técnicos.
+Puntaje de calidad de una señal, de **0 a 100**. Lo genera el sistema combinando varios indicadores. Cuanto más alto, más confianza.
 
-| Valor | Significado |
-|-------|-------------|
-| 80-100 | Señal muy fuerte — confluencia de múltiples indicadores |
-| 60-79 | Señal buena — la mayoría de indicadores alineados |
-| 40-59 | Señal débil — pocos indicadores a favor |
-| 0-39 | Señal muy débil — el bot la descarta |
-
-**Más alto = más selectivo.** Un score mínimo de 65 significa que el bot solo opera cuando la señal tiene buena calidad.
+| Rango | Significado |
+|---|---|
+| 80–100 | Señal muy fuerte |
+| 60–79 | Señal buena |
+| 55–59 | Señal en el límite mínimo |
+| < 55 | Se descarta automáticamente |
 
 ## Confianza
 
-Nivel de certeza del análisis, basado en cuántas "confirmaciones" técnicas se alinean. Se expresa como BAJA, MEDIA o ALTA.
+Nivel general de la señal, basado en cuántos indicadores independientes confirman la dirección. Tiene tres niveles:
 
-| Nivel | Qué implica |
-|-------|-------------|
-| **ALTA** | Múltiples indicadores confirman la dirección. Menos operaciones, más precisas. |
-| **MEDIA** | Confirmación parcial. Balance entre frecuencia y precisión. |
-| **BAJA** | Pocas confirmaciones. Más operaciones pero mayor riesgo. |
+| Nivel | Implicancia |
+|---|---|
+| **ALTA** | Múltiples indicadores alineados — operación con más respaldo |
+| **MEDIA** | Confirmación parcial — balance entre frecuencia y precisión |
+| **BAJA** | Pocas confirmaciones — más operaciones pero más riesgo |
 
-## Confirmaciones
+## Trap risk
 
-Cantidad de indicadores técnicos que deben coincidir para que la señal sea válida. Cada confirmación es una "segunda opinión" del mercado.
+Probabilidad de que un movimiento del precio sea una "trampa" — una señal que parece buena pero termina revirtiendo. Va de 0 a 100. Cuanto más alto, más peligro.
 
-**Más confirmaciones = más seguridad, menos operaciones.**
-
-## Trap Risk (Riesgo de trampa)
-
-Probabilidad de que la señal sea una "trampa" — un movimiento falso del precio que parece una oportunidad pero termina revirtiendo.
-
-| Valor | Significado |
-|-------|-------------|
-| 0-15 | Riesgo bajo — la señal se ve genuina |
-| 15-30 | Riesgo moderado — proceder con cautela |
-| 30-50 | Riesgo alto — alta probabilidad de ser un movimiento falso |
-| 50+ | Riesgo muy alto — el bot debería descartarla |
-
-**El bot solo opera si el trap risk está por debajo del máximo configurado.** Un máximo de 25 significa que descarta cualquier señal con más de 25% de probabilidad de ser trampa.
+El sistema bloquea automáticamente las señales con trap risk arriba de cierto umbral. También tenés el trap risk **del mercado en general** visible arriba en la pestaña Mercado.
 
 ## Take Profit (TP)
 
-Porcentaje de ganancia al que el bot cierra la operación automáticamente.
+Precio objetivo de **ganancia**. Cuando el precio de la moneda lo toca, el bot vende automáticamente y la operación cierra en ganancia.
 
-**Ejemplo:** TP de 1.5% con una compra de $100 → el bot vende cuando el valor llega a $101.50.
-
-Un TP más alto busca más ganancia por operación, pero tarda más en alcanzarse (o puede no alcanzarse).
+Se setea en el momento de abrir el trade y se coloca como una orden real en Binance (parte del **OCO**).
 
 ## Stop Loss (SL)
 
-Porcentaje de pérdida máxima tolerable. Si el precio baja este porcentaje, el bot cierra la operación para limitar la pérdida.
+Precio objetivo de **pérdida controlada**. Cuando el precio toca este nivel, el bot vende automáticamente para limitar la pérdida.
 
-**Ejemplo:** SL de 0.8% con una compra de $100 → el bot vende si el valor baja a $99.20.
+Junto con el TP, se coloca como orden real en Binance al momento de abrir el trade.
 
-<Warning>
-  Un SL muy ajustado (ej: 0.3%) puede hacer que el bot cierre operaciones por ruido normal del mercado. Un SL muy amplio (ej: 3%) arriesga más capital por operación.
-</Warning>
+## OCO (One Cancels Other)
 
-### Relación TP/SL
+Tipo de orden compuesta de Binance: dos órdenes vinculadas, donde si una se ejecuta la otra se cancela automáticamente. Arbitrify usa OCO con un **Take Profit** y un **Stop Loss** para que cada operación tenga salida garantizada en ambos extremos.
 
-La relación entre Take Profit y Stop Loss determina cuántas operaciones necesitás ganar para ser rentable:
+## Auto-cancel (24h)
 
-| TP | SL | Ratio | Win rate mínimo para ser rentable |
-|----|------|-------|----------------------------------|
-| 1.5% | 0.8% | 1.9:1 | ~35% |
-| 1.0% | 0.5% | 2:1 | ~33% |
-| 0.5% | 0.3% | 1.7:1 | ~37% |
+Si una operación lleva más de **24 horas abierta** sin tocar TP ni SL, se cancela automáticamente. Sirve para no quedar atrapado en operaciones que perdieron impulso.
 
-**A mayor ratio TP/SL, menos operaciones necesitás ganar.**
+## Capital máximo
 
-## Operaciones por ciclo
+Tope de USDT que puede estar simultáneamente comprometido en operaciones abiertas. Si se alcanza, el bot no abre operaciones nuevas hasta que cierren las que ya están en curso.
 
-Cantidad máxima de trades que el bot puede abrir en cada ronda de análisis. Limita la exposición simultánea.
+## Capital en operación
 
-| Valor | Comportamiento |
-|-------|---------------|
-| 1-2 | Conservador — pocas posiciones abiertas a la vez |
-| 3-4 | Moderado |
-| 5+ | Agresivo — más exposición simultánea |
+El total de USDT comprometido **en este momento** en operaciones abiertas. Lo ves en el header del dashboard ("Capital disponible") y en la barra horizontal del dashboard ("Capital en operación").
 
-## Volumen mínimo (5 min)
+## Stop diario
 
-Volumen de trading en los últimos 5 minutos que debe tener una moneda para ser operada. Se mide en dólares.
+Pérdida máxima permitida en un día. Si se alcanza, el bot deja de operar hasta el día siguiente. Configurable como porcentaje del balance o en USDT fijo.
 
-Monedas con poco volumen tienen mayor spread (diferencia entre precio de compra y venta) y mayor riesgo de slippage (que el precio se mueva entre que el bot decide y ejecuta).
+Se evalúa con el **P&L realizado** (operaciones ya cerradas) — los trades abiertos perdiendo no cuentan hasta que se cierren.
 
-| Valor | Qué filtra |
-|-------|-----------|
-| $500K+ | Solo monedas con buena liquidez |
-| $800K+ | Monedas con liquidez alta |
-| $1M+ | Solo las monedas más líquidas del mercado |
+## Drawdown
 
-## Modo Auto vs Manual
-
-| Modo | Descripción |
-|------|-------------|
-| **Auto** | Arbitrify configura y optimiza los parámetros automáticamente. Se actualizan sin que tengas que hacer nada. |
-| **Manual** | Vos elegís cada parámetro. Para usuarios que quieren control total. |
-
-<Tip>
-  Si recién empezás, usá **Auto**. Los parámetros están calibrados para un balance entre frecuencia y seguridad.
-</Tip>
-
-## Comisiones
-
-Cada operación tiene una comisión de **0.075%** (con descuento por pagar en BNB). Se cobra tanto en la compra (entry fee) como en la venta (exit fee).
-
-El P&L que ves en el Dashboard ya descuenta ambas comisiones — es tu ganancia neta real.
-
-## Market Gate
-
-Sistema automático que bloquea la ejecución de trades cuando las condiciones de mercado son riesgosas. No es configurable por el usuario — actúa como una capa de protección del sistema.
+Pérdida máxima desde el peak histórico. Distinto al stop diario porque **no se reinicia cada día** — persiste hasta que recuperes el peak.
 
 ## Cooldown
 
-Después de un Stop Loss en un símbolo, el bot espera antes de volver a operar esa misma moneda. Evita operar repetidamente en un símbolo que está en tendencia negativa.
+Tiempo de espera después de un Stop Loss en una moneda antes de que el bot vuelva a operarla. Evita operar en cascada en una moneda que está en tendencia negativa.
 
-## Blacklist dinámico
+## Blacklist
 
-Si un símbolo acumula un historial reciente negativo, se bloquea automáticamente. Se desbloquea solo cuando las condiciones mejoran.
+Lista de monedas que el bot **no opera**. Hay dos:
+
+- **Blacklist manual**: la armás vos desde Configuración → Avanzada
+- **Blacklist dinámica**: el sistema bloquea automáticamente monedas con mal comportamiento reciente, y las desbloquea cuando mejoran
+
+## Comisión Binance
+
+Lo que cobra Binance por ejecutar la orden: **0,075%** con descuento BNB activo. Se cobra en la **compra** y en la **venta**. Es independiente de Arbitrify — la cobra Binance directamente.
+
+## Comisión Arbitrify
+
+**0,35%** del monto invertido, **solo en operaciones que cierran con ganancia** en modo Real. En Simulación no se cobra. Se debita del saldo prepago de Arbitrify (no de Binance).
+
+[Cómo funciona el billing →](/billing/como-funciona-billing)
+
+## Saldo prepago
+
+El crédito que cargás en Arbitrify para que el bot opere en modo Real. Se consume con las comisiones de operaciones ganadoras. Cuando se acaba, el bot se pausa solo.
+
+[Cómo recargar →](/billing/recargar-creditos)
+
+## Quote qty
+
+Término de Binance que aparece en el detalle de un trade. Es el **monto en USDT efectivamente invertido** en la operación, después de slippage, partial fills y redondeos. Es el número que usamos para calcular la comisión Arbitrify.
+
+## P&L
+
+**Profit & Loss**. La ganancia o pérdida neta de una operación o de un período. En la app aparece a veces como "ganancia/pérdida" o como **P&L**. Siempre es **neto** — descontamos comisión Binance y comisión Arbitrify.
+
+## P&L realizado
+
+Suma de los P&L de operaciones que **ya cerraron**. Es la ganancia "confirmada".
+
+## P&L no realizado
+
+Ganancia o pérdida actual de operaciones que **siguen abiertas**, calculada con el precio de mercado en este momento. Cambia minuto a minuto. Cuando los trades cierran, pasa a ser P&L realizado.
+
+## Win rate (Efectividad)
+
+Porcentaje de operaciones cerradas que terminaron en ganancia, sobre el total de operaciones cerradas en el período.
+
+## Capital operado
+
+Suma del USDT que pasó por las operaciones cerradas en el período. Si una operación abrió con $50 y cerró, suma $50 al capital operado.
+
+## Velocidad
+
+Cuánto está generando el bot por día, calculado sobre los **últimos 15 días**. Lo ves como card principal en el dashboard, junto con sus equivalentes semanal, mensual y anual.
+
+## Modo Simulación / Real
+
+Los dos modos del bot:
+
+| | Simulación | Real |
+|---|---|---|
+| Ejecución | Virtual | Órdenes reales en Binance |
+| Capital | Balance virtual | Tu USDT en Binance Spot |
+| Comisión Arbitrify | No aplica | 0,35% en wins |
+
+## Mercado: Favorable / Precaución / Desfavorable
+
+Veredicto general del mercado que el sistema calcula combinando varios indicadores macro. Lo ves arriba en la pestaña Mercado.
+
+| Veredicto | Comportamiento del bot |
+|---|---|
+| **Favorable** | Opera con normalidad |
+| **Precaución** | Opera con criterios más estrictos |
+| **Desfavorable** | No abre operaciones nuevas |

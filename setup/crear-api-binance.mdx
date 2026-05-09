@@ -1,56 +1,72 @@
 ---
 title: Crear API en Binance
-description: Paso a paso para generar y configurar tu API de Binance.
+description: Generar y configurar la API Key que Arbitrify usa para operar en tu cuenta.
 ---
 
-Para que Arbitrify pueda operar en tu cuenta de Binance, necesitás crear una API Key con permisos de Spot Trading.
+Para que el bot opere en tu cuenta de Binance en modo Real, necesitás crear una **API Key** con permisos de Spot Trading. Es un proceso que se hace una sola vez, dentro de Binance.
 
 ## Requisitos previos
 
-- Cuenta verificada en **Binance**
-- Autenticación de dos factores (2FA) activada
+- Cuenta verificada en [Binance](https://www.binance.com)
+- **Autenticación de dos factores (2FA)** activada — Binance no te deja crear APIs sin esto
 
 ## Paso a paso
 
 <Steps>
-  <Step title="Accedé a la gestión de API">
-    Ingresá a tu cuenta de Binance. Andá a **Cuentas → Gestión de API**, o desde tu billetera en el resumen, bajá hasta **Cuenta → Gestión de API**.
+  <Step title="Andá a Gestión de API">
+    En Binance: **Cuenta → Gestión de API**. También llegás desde el resumen de tu billetera, bajando hasta la sección de API.
   </Step>
   <Step title="Desmarcá la opción de restricción">
-    Antes de crear la API, verificá si tenés tildada una opción de restricción. Si la ves marcada, **desmarcala**. Si no la desmarcás, Binance te va a permitir crear la API pero no editarla después.
+    Antes de crear la API, fijate si tenés tildada una opción que dice algo como **"Restringir esta cuenta a APIs de solo lectura"**. Si está marcada, **desmarcala primero**.
+
+    <Warning>
+      Si no la desmarcás antes de crear la API, Binance te va a permitir crearla pero **no vas a poder editar los permisos después**, y la API te va a quedar inservible para operar.
+    </Warning>
   </Step>
   <Step title="Creá la API">
-    Seleccioná **API generada por el sistema**, ponele el nombre que quieras (ej: "Arbitrify") y confirmá. Binance te va a pedir un **código de verificación** (por email, SMS o autenticador).
+    Elegí **API generada por el sistema**, ponele un nombre identificable (ej. `Arbitrify`) y confirmá. Te va a pedir un código de verificación por email, SMS o tu app de autenticador.
   </Step>
-  <Step title="Habilitá los permisos de Spot">
-    Una vez creada, la API viene solo con permisos de lectura. Necesitás habilitarla para operar:
+  <Step title="Habilitá Spot Trading">
+    La API recién creada viene con permisos de solo lectura. Para que pueda operar:
 
     1. Hacé clic en **Editar restricciones**
     2. Habilitá **Spot y Trading de margen**
-    3. Guardá los cambios (te va a pedir de nuevo el código de verificación)
+    3. Guardá los cambios — te pide el código de verificación de nuevo
+
+    <Info>
+      **No habilites retiros, ni futuros, ni margin.** Arbitrify solo usa **Spot Trading**. Habilitar permisos extra agrega riesgo a tu cuenta sin beneficio.
+    </Info>
   </Step>
   <Step title="Copiá las claves">
     Vas a tener dos datos:
 
-    - **API Key** (clave pública) — se puede ver en cualquier momento
-    - **Secret Key** (clave secreta) — **se muestra una sola vez**
+    - **API Key** (clave pública) — la podés ver cuando quieras desde Binance
+    - **Secret Key** (clave secreta) — **se muestra una sola vez, en este momento**
 
-    Copiá ambas y guardalas en un lugar seguro.
+    Copiá las dos en un lugar seguro. Las vas a necesitar para conectarlas a Arbitrify.
+
+    <Warning>
+      Si perdés la **Secret Key**, no hay forma de recuperarla. Tenés que eliminar la API y crear una nueva.
+    </Warning>
   </Step>
 </Steps>
-
-<Warning>
-  La **Secret Key** solo se muestra una vez al crear la API. Si la perdés, vas a tener que eliminar la API y crear una nueva.
-</Warning>
 
 ## Errores comunes
 
 | Problema | Solución |
-|----------|----------|
-| No puedo editar la API después de crearla | Desmarcá la opción de restricción antes de crear la API |
-| Se me perdió la Secret Key | Eliminá la API y creá una nueva |
-| El código de verificación no llega | Esperá unos segundos y reintentá. Revisá spam si es por email |
+|---|---|
+| No puedo editar la API después de crearla | Desmarcá la opción de restricción **antes** de crear la API. Si ya la creaste sin desmarcar, eliminala y volvé a empezar. |
+| Perdí la Secret Key | No se puede recuperar. Eliminá la API y creá una nueva. |
+| El código de verificación no llega | Esperá unos segundos, revisá spam. Si seguís sin recibirlo, probá con otro método (SMS o app autenticadora). |
 
-<Info>
-  Arbitrify solo necesita permisos de **Spot Trading**. No habilites retiros ni futuros — no son necesarios y agregan riesgo innecesario a tu API.
-</Info>
+## Seguridad
+
+- **Nunca habilites retiros** en una API que vayas a usar con un bot. Ningún bot legítimo necesita ese permiso.
+- **No compartas la Secret Key** con nadie ni la pegues en chats, emails o screenshots. Solo va dentro de Arbitrify.
+- Si sospechás que tu API Key pudo haberse filtrado, eliminala desde Binance y creá una nueva.
+
+## Próximo paso
+
+<Card title="Conectar Binance a Arbitrify" icon="link" href="/setup/conectar-binance">
+  Cargar las claves en la app y verificar la conexión.
+</Card>

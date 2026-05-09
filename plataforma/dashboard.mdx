@@ -1,58 +1,140 @@
 ---
 title: Dashboard
-description: Tu centro de control — balance, estadísticas, gráficos y proyecciones.
+description: Tu centro de control — cuenta, velocidad, análisis y trades abiertos.
 ---
 
-El Dashboard es la pantalla principal de Arbitrify. Muestra el estado de tu cuenta, el rendimiento del bot y proyecciones basadas en datos reales.
+El Dashboard es la pantalla principal. Muestra cómo va tu cuenta hoy, qué tan rápido está operando el bot, los números del período que elijas y los trades que están abiertos en este momento.
 
-## Balance
+## Header del dashboard
 
-En la parte superior ves tu balance actual:
+Arriba del todo, una barra fina con la información operativa:
 
-- **Balance total** — tu capital disponible (paper o real según el modo)
-- **Capital en juego** — cuánto tenés en trades abiertos en este momento
-
-En modo Paper, el balance arranca en $10,000 y se ajusta con las ganancias y pérdidas de cada trade. En modo Live, refleja tu balance real de USDT en Binance.
-
-## Estadísticas
-
-Cuatro tarjetas de resumen:
-
-| Métrica | Qué muestra |
-|---------|-------------|
-| **Total Trades** | Cantidad total de operaciones ejecutadas |
-| **Win Rate** | Porcentaje de trades que cerraron en Take Profit |
-| **P&L Total** | Ganancia o pérdida neta acumulada (descontando comisiones) |
-| **Comisiones** | Total de fees pagados (0.075% por operación) |
+| Elemento | Qué hace |
+|---|---|
+| **Toggle Sim / Real** | Cambia qué información ves en la pantalla — los trades de Simulación o los de Real. **No prende ni apaga el bot**, solo cambia lo que mirás. |
+| **Capital disponible** | Lo que tenés líquido en USDT, sin contar lo que está en operaciones. Aparece junto con tu balance de **BNB** (que se usa para pagar comisiones de Binance con descuento). |
+| **Botón Compartir** | Genera un link público con tus stats para mostrarle a alguien cómo va tu cuenta. [Ver Compartir](#compartir-tu-dashboard). |
 
 <Info>
-  El P&L ya descuenta comisiones de entrada y salida. Es tu ganancia neta real.
+  El toggle **Sim/Real** del dashboard controla **qué visualizás**, no el modo del bot. El bot tiene su propio control (prende/apaga + Sim/Real) en otro lado del header — es la pastilla de estado con un punto pulsante.
 </Info>
 
-## Gráficos
+## Mi cuenta
 
-El dashboard incluye gráficos que muestran la evolución de tu cuenta:
+La sección principal con dos cards grandes y una barra de capital en juego:
 
-- **P&L acumulado** — curva de ganancias/pérdidas a lo largo del tiempo
-- **Trades por día** — volumen de operaciones diarias
+### Card Total
 
-## ROI Projector
+Tu cuenta total en este momento. En Real desglosa los tres componentes:
 
-Sección colapsable que proyecta tu rendimiento futuro basándose en tus datos reales:
+| | Qué es |
+|---|---|
+| **Aportado** | Cuánto plata depositaste en Binance Spot, neto de retiros |
+| **Realizado** | Ganancia o pérdida acumulada desde que empezaste, ya cerrada |
+| **No realizado** | Lo que están ganando o perdiendo tus trades **abiertos** ahora mismo |
 
-- **30 días** — proyección a un mes
-- **90 días** — proyección a un trimestre
-- **180 días** — proyección a medio año
+En Simulación muestra simplemente el balance virtual actual (lo que elegiste al empezar más/menos lo que el bot ganó o perdió).
 
-Las proyecciones usan tu win rate actual, P&L promedio por trade y frecuencia de operación para estimar resultados futuros. Son orientativas — los mercados cambian.
+### Card Velocidad
 
-<Warning>
-  Si tu win rate actual es bajo, el proyector lo reflejará con resultados negativos. No es un error — es una señal de que hay que ajustar parámetros o esperar a que el mercado se alinee mejor.
-</Warning>
+Cuánto está generando el bot por día, calculado sobre los **últimos 15 días**. Lo expresamos en cuatro escalas para que tengas referencia:
 
-## Estado del bot
+- Por día (el número principal)
+- Equivalente semanal
+- Equivalente mensual
+- Equivalente anual
 
-En el header de la app ves el estado operativo:
+<Tip>
+  La velocidad cambia con las condiciones del mercado. Si cae mucho, no significa que algo esté roto — puede ser que el mercado no esté ofreciendo señales buenas. Mirá el [estado del mercado](/plataforma/mercado) para contexto.
+</Tip>
 
-- **Punto verde pulsante + "Operando"** — el bot está activo y analizando el mercado
-- **Punto gris** — el bot está pausado o no conectado
+### Capital en operación
+
+Una barra horizontal que muestra el **rango de tus operaciones abiertas**:
+
+- A la izquierda en **rojo**: el peor escenario si todos los stops se ejecutaran
+- En el medio: el costo total invertido
+- A la derecha en **verde**: el mejor escenario si todos los TP se ejecutaran
+- Un **triángulo** marca dónde estás ahora mismo (P&L abierto en tiempo real)
+
+Abajo, un link directo a la lista de trades abiertos.
+
+## Análisis
+
+Sección más densa, con un selector de fechas a la derecha (Hoy, Ayer, 7d, 15d, 30d, Histórico, Custom). Cinco cards de números:
+
+| Card | Qué muestra |
+|---|---|
+| **Trades realizados** | Cuántas operaciones se cerraron en el período |
+| **Capital operado** | Cuánto USDT pasó por las operaciones (suma de entradas) |
+| **Efectividad** | Porcentaje de operaciones que cerraron en ganancia |
+| **Rendimiento** | ROI del período sobre el capital operado |
+| **Resultado** | Ganancia o pérdida neta del período |
+
+Algunas cards muestran un subline con info extra: máximo capital simultáneo, drawdown máximo, total histórico, etc.
+
+### Gráfico de cuenta
+
+Debajo de las cards, un gráfico unificado de la evolución de tu cuenta. Tiene varios controles:
+
+- **5 timeframes**: Trade (1 vela = 1 trade), 1h, 4h, 1d, 1w
+- **2 vistas**: Velas (candlestick) o Área (con corte verde/rojo en el cero)
+- **Línea cero** punteada siempre visible
+- **Hover**: muestra OHLC, P&L, win rate, pico/valle intra-bucket y comisiones del bucket
+- **Click en una vela**: drill-down al trade individual o al rango de fechas
+
+<Info>
+  En el timeframe **Trade** cada vela representa una operación cerrada. En los demás timeframes representan ventanas de tiempo (hora, día, semana).
+</Info>
+
+## Trades abiertos
+
+Si tenés operaciones activas, aparece una sección al final con:
+
+- **La lista** de trades abiertos con su P&L en tiempo real
+- **Link** "Ver todos →" para abrir la pestaña Trades
+- **Botón de cierre masivo** para cerrar varios trades a la vez
+- **Una línea informativa**: *"En promedio tus operaciones cierran en X minutos/horas/días y un Y% cierra con ganancia."* Te da contexto rápido del tiempo y la efectividad de tus trades.
+
+Si no hay trades abiertos, esta sección no aparece.
+
+## Tour del dashboard
+
+La primera vez que entrás te ofrecemos un **tour interactivo** de unos 3 minutos que te explica cada elemento del dashboard. Si lo cerraste, lo podés volver a abrir desde el menú del avatar arriba a la derecha → **Tour del Dashboard**.
+
+## Compartir tu dashboard
+
+Arriba a la derecha del dashboard hay un ícono de **Compartir**. Sirve para generar un link público read-only con tus stats — útil para mostrarle a alguien cómo te va sin tener que dar acceso a tu cuenta.
+
+### Cómo configurarlo
+
+<Steps>
+  <Step title="Abrí el modal de Compartir">
+    Click en el ícono de share. Se abre un modal con cuatro controles.
+  </Step>
+  <Step title="Elegí un handle">
+    Tu URL pública va a ser `arbitrify.com/u/<tu-handle>`. El handle tiene que tener entre **2 y 24 caracteres**, único, no es case-sensitive.
+  </Step>
+  <Step title="Elegí qué mostrar">
+    | Control | Opciones |
+    |---|---|
+    | **Modo** | Paper / Live / Both — qué cuenta(s) se ven en el público |
+    | **Mostrar balance** | Off (default) / On — si se ve plata en USD o solo porcentajes |
+  </Step>
+  <Step title="Activá el toggle">
+    Hasta que prendas el toggle **Activo**, el link no funciona aunque esté configurado.
+  </Step>
+</Steps>
+
+### Qué se ve y qué NO se ve en el público
+
+| Visible | Oculto |
+|---|---|
+| ✓ Win rate, cantidad de trades | ✗ Trades individuales |
+| ✓ ROI y P&L en porcentaje | ✗ API Keys |
+| ✓ P&L en USD (solo si activás "Mostrar balance") | ✗ Configuración del bot |
+| ✓ Capital operado y peak (si "Mostrar balance" activo) | ✗ Trades abiertos |
+
+<Info>
+  El público se actualiza solo cada **60 segundos**. No es exactamente en tiempo real, pero sí muy cerca.
+</Info>
